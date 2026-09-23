@@ -399,7 +399,7 @@ function renderBadge(){
   const done = doneCount(S.line);
   return '<div class="section-title">徽章墙 · 拼豆收集册</div>'
     +'<p style="font-size:12.5px;color:var(--ink-soft);margin:-4px 0 12px;line-height:1.7">每一枚徽章都是一幅拼豆画——完成对应挑战，豆子一颗颗亮起来。</p>'
-    +'<div class="badge-grid">'+BADGES.map((b,i=>{
+    +'<div class="badge-grid">'+BADGES.map((b,i)=>{
       const lit = b.cond(done);
       return '<div class="badge'+(lit?' lit':'')+'"><span class="ico">'+beadSvg(BEAD_ART[i], lit, b.col)+'</span><span>'+b.n+'</span>'+(lit?'<span class="got">已点亮</span>':'<span class="lock">'+b.d+'</span>')+'</div>';
     }).join('')+'</div>'
