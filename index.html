@@ -2,959 +2,1116 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>工银财趣 · 21天财富剧本 — 网页版Demo</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Crect width='32' height='32' fill='%2323283C'/%3E%3Crect x='6' y='6' width='20' height='20' fill='%23C7000B'/%3E%3Crect x='10' y='10' width='4' height='4' fill='%23FFD23F'/%3E%3Crect x='16' y='10' width='4' height='4' fill='%23FFD23F'/%3E%3Crect x='10' y='16' width='4' height='4' fill='%23FFFFFF'/%3E%3Crect x='16' y='16' width='4' height='4' fill='%23FFFFFF'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Press+Start+2P&family=ZCOOL+KuaiLe&display=swap">
-<style>:root{
-  --red:#C7000B;          /* 工银红 品牌锚点 */
-  --red-deep:#9E0008;
-  --ink:#23283C;          /* 深墨蓝 描边/主字 */
-  --cream:#FFF8EC;        /* 暖奶白 页面底 */
-  --paper:#FFFFFF;
-  --yellow:#FFD23F;       /* 像素黄 */
-  --green:#7BC950;        /* 像素绿 */
-  --blue:#4EA8DE;         /* 像素蓝 */
-  --purple:#9B5DE5;       /* 像素紫 */
-  --orange:#F4845F;       /* 像素橙 */
-  --gold:#F5A623;         /* 暖金 */
-  --teal:#0E9C8E;
-  --line:#DDD3BE;
-  --ink-soft:#6B6575;
-  --px:3px;
-  --shadow:4px 4px 0 var(--ink);
-  --shadow-sm:3px 3px 0 var(--ink);
-  --radius:10px;
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;image-rendering:pixelated}
-html,body{height:100%}
-body{
-  font-family:"ZCOOL KuaiLe","PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
-  background:#EDE6D6;
-  color:var(--ink);
-  font-size:15px;
-  line-height:1.6;
-}
-/* 像素点阵背景 */
-.stage{min-height:100vh;display:flex;justify-content:center;background:
-  radial-gradient(circle, rgba(35,40,60,.10) 1.5px, transparent 1.5px),
-  radial-gradient(1200px 500px at 15% -10%, rgba(199,0,11,.07), transparent 60%),
-  radial-gradient(1000px 500px at 90% 110%, rgba(14,156,142,.08), transparent 60%), #EDE6D6;
-  background-size:14px 14px, 100% 100%, 100% 100%, 100% 100%;}
-.phone{
-  width:100%;max-width:430px;min-height:100vh;
-  background:var(--cream);
-  position:relative;
-  border-left:3px solid var(--ink);
-  border-right:3px solid var(--ink);
-}
-@media (min-width:520px){
-  .phone{margin:24px 0;min-height:calc(100vh - 48px);border-radius:26px;border:4px solid var(--ink);box-shadow:10px 10px 0 rgba(35,40,60,.85);overflow:hidden}
-}
-.view{display:none;padding:0 16px 96px;animation:fadeIn .22s steps(3)  }
-.view.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>工银e生 · 21天扑满计划</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; image-rendering: pixelated; }
+  body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    background: #1E2A4A;
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 16px 16px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 80px;
+  }
 
-/* ===== 像素通用件 ===== */
-.fx{font-family:"Press Start 2P","ZCOOL KuaiLe",monospace;letter-spacing:.02em}
-.fz{font-family:"ZCOOL KuaiLe","PingFang SC",sans-serif}
-.pixel-box{background:var(--paper);border:2.5px solid var(--ink);box-shadow:var(--shadow-sm);border-radius:var(--radius)}
-.pixel-tag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;background:var(--ink);color:#fff;border-radius:6px;padding:3px 9px;letter-spacing:.06em}
+  /* 启动页 */
+  #start-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .pixel-title {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #FFC93C;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+    text-shadow: 2px 2px 0 #000;
+  }
+  .main-title {
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 4px 4px 0 #C7000B, 6px 6px 0 #000;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .sub-title {
+    font-size: 18px;
+    color: #FFC93C;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 0 #000;
+  }
+  .start-pig {
+    width: 120px;
+    height: 120px;
+    margin: 20px auto 30px;
+  }
+  .start-btn {
+    background: #FFC93C;
+    color: #1E2A4A;
+    border: 4px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    padding: 14px 48px;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.1s;
+    font-family: inherit;
+  }
+  .start-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000;
+  }
+  .start-tip {
+    margin-top: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+  }
 
-/* ===== 启动页（游戏标题画面） ===== */
-#view-start{min-height:100vh;display:none;flex-direction:column;padding:0;background:var(--ink)}
-#view-start.active{display:flex}
-.start-top{flex:1;padding:30px 22px 20px;color:#fff;position:relative;overflow:hidden;
-  background:
-   linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
-   linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
-   linear-gradient(180deg,#3A4370 0%,#23283C 70%);
-  background-size:22px 22px,22px 22px,100% 100%}
-/* 像素星空 */
-.sky-deco{position:absolute;inset:0;pointer-events:none}
-.sky-deco i{position:absolute;width:6px;height:6px;background:var(--yellow);box-shadow:0 0 0 2px rgba(255,210,63,.25);animation:twinkle 2s steps(2) infinite}
-.sky-deco i:nth-child(1){left:8%;top:12%}
-.sky-deco i:nth-child(2){left:82%;top:8%;animation-delay:.5s}
-.sky-deco i:nth-child(3){left:70%;top:24%;width:4px;height:4px;animation-delay:1s}
-.sky-deco i:nth-child(4){left:16%;top:34%;width:4px;height:4px;animation-delay:1.4s}
-.sky-deco i:nth-child(5){left:90%;top:44%;animation-delay:.8s}
-.sky-deco i:nth-child(6){left:30%;top:6%;animation-delay:1.8s}
-@keyframes twinkle{0%,100%{opacity:.35}50%{opacity:1}}
-/* 像素云 */
-.cloud{position:absolute;background:#fff;opacity:.92}
-.cloud::before,.cloud::after{content:"";position:absolute;background:#fff}
-.cloud.c1{width:64px;height:14px;left:-8px;top:52%;border-radius:2px}
-.cloud.c1::before{width:22px;height:22px;left:12px;top:-10px;border-radius:3px}
-.cloud.c1::after{width:16px;height:16px;left:34px;top:-6px;border-radius:3px}
-.cloud.c2{width:52px;height:12px;right:-6px;top:30%;border-radius:2px}
-.cloud.c2::before{width:18px;height:18px;left:10px;top:-8px;border-radius:3px}
-.cloud.c2::after{width:14px;height:14px;left:28px;top:-5px;border-radius:3px}
-.start-brand{display:flex;align-items:center;gap:10px;font-size:12px;color:#C9D2E0;position:relative;z-index:1}
-.start-brand svg{width:30px;height:30px;border:2px solid #fff;border-radius:8px}
-.title-box{position:relative;z-index:1;margin-top:38px;text-align:center}
-.title-box .kicker{font-size:10px;color:var(--yellow);margin-bottom:16px;letter-spacing:.12em}
-.title-box h1{font-size:46px;line-height:1.1;font-weight:700;color:#fff;letter-spacing:.04em;
-  text-shadow:3px 3px 0 var(--red),6px 6px 0 rgba(199,0,11,.45)}
-.title-box .sub-line{display:inline-block;margin-top:14px;font-size:14px;color:var(--yellow);background:rgba(255,210,63,.12);border:1.5px dashed rgba(255,210,63,.7);border-radius:8px;padding:5px 14px;letter-spacing:.2em}
-.title-box p{margin-top:18px;font-size:13.5px;color:#B9C4D8;max-width:26em;line-height:1.8}
-.start-cards{display:flex;gap:10px;margin-top:26px;position:relative;z-index:1}
-.start-cards>div{flex:1;background:rgba(255,255,255,.09);border:2px solid rgba(255,255,255,.55);border-radius:10px;padding:12px 6px 10px;text-align:center;box-shadow:3px 3px 0 rgba(0,0,0,.3)}
-.start-cards b{display:block;font-size:15px;color:var(--yellow);margin-bottom:6px}
-.start-cards span{font-size:11.5px;color:#C9D2E0}
-.start-bottom{padding:18px 22px 24px;background:var(--ink);border-top:3px solid var(--yellow);position:relative;z-index:1}
-.start-bottom .note{font-size:10.5px;color:#8FA0BA;margin-top:12px;text-align:center;line-height:1.7}
-.btn{display:block;width:100%;border:0;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;text-align:center;font-family:inherit;transition:transform .08s ease, box-shadow .08s ease}
-.btn:active{transform:translate(3px,3px);box-shadow:none!important}
-.btn-start{background:var(--yellow);color:var(--ink);border:3px solid var(--ink);box-shadow:6px 6px 0 rgba(255,255,255,.22);padding:15px 0}
-.btn-start .fx{font-size:14px}
-.btn-primary{background:var(--red);color:#fff;border:2.5px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:14px 0}
-.btn-primary:hover{background:var(--red-deep)}
-.btn-ghost{background:transparent;color:var(--ink-soft);padding:12px 0;font-size:14px;font-weight:500}
-.btn-ghost:hover{color:var(--ink)}
-.btn-line{background:var(--paper);border:2.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);color:var(--ink);padding:13px 0;font-size:15px;border-radius:12px}
-.btn-line:hover{background:var(--cream)}
-.btn-line:active{box-shadow:none;transform:translate(2px,2px)}
-.btn-sm{display:inline-block;width:auto;padding:9px 18px;font-size:14px}
+  /* 选线页 */
+  #select-screen { display: none; padding: 30px 20px; }
+  .select-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .select-sub {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+  }
+  .story-card {
+    background: #2A3A5F;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    padding: 16px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+  .story-card:hover { background: #354873; }
+  .story-card:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 #000; }
+  .story-icon { font-size: 28px; margin-bottom: 6px; }
+  .story-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #FFC93C;
+  }
+  .story-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
 
-/* ===== 通用头部 ===== */
-.app-head{position:sticky;top:0;z-index:20;background:rgba(255,248,236,.94);backdrop-filter:blur(8px);border-bottom:3px solid var(--ink);margin:0 -16px;padding:12px 16px;display:flex;align-items:center;gap:12px}
-.app-head .back{background:none;border:2px solid var(--ink);border-radius:8px;cursor:pointer;padding:3px 5px;display:flex;color:var(--ink);box-shadow:2px 2px 0 var(--ink)}
-.app-head .back:active{box-shadow:none;transform:translate(2px,2px)}
-.app-head h2{font-size:18px;font-weight:700;flex:1;text-align:center;letter-spacing:.04em}
-.app-head .spacer{width:34px}
-.section-title{font-size:14px;font-weight:700;margin:22px 0 12px;display:flex;align-items:center;gap:8px;letter-spacing:.04em}
-.section-title::after{content:"";flex:1;height:3px;background:repeating-linear-gradient(90deg,var(--ink) 0 8px,transparent 8px 16px)}
+  /* 主旅程页 */
+  #main-screen { display: none; padding: 20px 16px; }
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .story-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFC93C;
+  }
+  .day-label {
+    background: #C7000B;
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 2px solid #000;
+  }
+  .progress-box {
+    background: #2A3A5F;
+    border: 3px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  .progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .progress-bar {
+    height: 16px;
+    background: #1A2540;
+    border: 2px solid #000;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: repeating-linear-gradient(
+      90deg,
+      #C7000B 0px, #C7000B 8px,
+      #FFC93C 8px, #FFC93C 16px
+    );
+    width: 0%;
+    transition: width 0.5s;
+  }
+  .coin-count {
+    text-align: right;
+    font-size: 12px;
+    color: #FFC93C;
+    margin-top: 6px;
+  }
 
-/* ===== 财富人格测试 ===== */
-.quiz-progress{height:12px;background:#E4DCC8;border:2px solid var(--ink);border-radius:6px;margin:18px 0 6px;overflow:hidden}
-.quiz-progress i{display:block;height:100%;background:repeating-linear-gradient(90deg,var(--red) 0 12px,#B3000A 12px 24px);border-right:2px solid var(--ink);transition:width .3s steps(6)}
-.quiz-step{font-size:12px;color:var(--ink-soft);margin-bottom:18px}
-.quiz-step .fx{font-size:11px;color:var(--red)}
-.quiz-q{font-size:19px;font-weight:700;line-height:1.5;margin-bottom:20px}
-.quiz-opt{display:block;width:100%;text-align:left;background:var(--paper);border:2.5px solid var(--ink);border-radius:12px;padding:14px 16px;margin-bottom:10px;font-size:15px;font-family:inherit;color:var(--ink);cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:all .08s}
-.quiz-opt:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
-.quiz-opt:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
-.quiz-opt.selected{border-color:var(--red);background:#FFF1D6;font-weight:700;box-shadow:4px 4px 0 var(--red)}
-.quiz-skip{display:block;width:100%;background:none;border:0;color:var(--ink-soft);text-align:center;padding:12px 0;font-size:14px;cursor:pointer;font-family:inherit}
+  .today-card {
+    background: #FFF8E7;
+    color: #1E2A4A;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .today-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #C7000B;
+  }
+  .today-content {
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .today-knowledge {
+    background: #F0E6C8;
+    padding: 10px;
+    border-left: 4px solid #C7000B;
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  .task-btn {
+    width: 100%;
+    background: #4CAF50;
+    color: #fff;
+    border: 3px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.1s;
+  }
+  .task-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 #000; }
+  .task-btn.done { background: #888; cursor: default; }
 
-/* ===== 剧情线选择 ===== */
-.line-card{display:block;width:100%;text-align:left;background:var(--paper);border:2.5px solid var(--ink);border-radius:14px;padding:16px;margin-bottom:12px;cursor:pointer;font-family:inherit;color:var(--ink);box-shadow:4px 4px 0 var(--ink);transition:all .08s}
-.line-card:hover,.line-card:focus{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink);outline:none}
-.line-card:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
-.line-card-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
-.line-icon{width:46px;height:46px;border-radius:12px;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:3px 3px 0 var(--ink)}
-.line-icon svg{width:24px;height:24px}
-.line-card h3{font-size:18px;font-weight:700}
-.line-card .tag{font-size:10.5px;color:#fff;border-radius:6px;padding:3px 8px;margin-left:auto;flex:none;letter-spacing:.06em;border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
-.line-card .desc{font-size:13.5px;color:var(--ink-soft);margin-bottom:8px}
-.line-card .meta{font-size:12px;color:var(--ink-soft);display:flex;gap:10px;flex-wrap:wrap}
-.line-card .meta b{color:var(--teal);font-weight:700}
-.line-tip{font-size:12px;color:var(--ink-soft);background:#F3EBD8;border:2px dashed var(--line);border-radius:10px;padding:10px 12px;margin-top:14px;line-height:1.7}
+  /* 日历 */
+  .calendar-box {
+    background: #2A3A5F;
+    border: 3px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  .cal-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #FFC93C;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .cal-day {
+    aspect-ratio: 1;
+    background: #1A2540;
+    border: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+  }
+  .cal-day.active { background: #FFC93C; color: #1E2A4A; font-weight: 700; }
+  .cal-day.done { background: #4CAF50; color: #fff; }
 
-/* ===== 主旅程 ===== */
-.journey-hero{border:3px solid var(--ink);border-radius:14px;overflow:hidden;margin-top:16px;position:relative;color:#fff;box-shadow:5px 5px 0 var(--ink)}
-.journey-hero .bg{position:absolute;inset:0;z-index:0}
-.journey-hero .bg::after{content:"";position:absolute;inset:0;background:
-  linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
-  background-size:18px 18px}
-.journey-hero .inner{position:relative;z-index:1;padding:16px 16px 14px}
-.journey-line{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;background:var(--ink);color:#fff;border-radius:6px;padding:4px 10px;margin-bottom:10px;letter-spacing:.06em}
-.journey-day{font-size:12px;color:rgba(255,255,255,.9);margin-bottom:2px}
-.journey-day b{font-size:24px;color:var(--yellow);font-weight:700}
-.journey-day .fx{color:var(--yellow)}
-.journey-act{font-size:16.5px;font-weight:700;margin-bottom:12px;text-shadow:2px 2px 0 rgba(35,40,60,.35)}
-.journey-progress{height:14px;background:rgba(255,255,255,.25);border:2px solid var(--ink);border-radius:7px;overflow:hidden}
-.journey-progress i{display:block;height:100%;border-right:2px solid var(--ink);transition:width .5s steps(8);background:repeating-linear-gradient(90deg,var(--yellow) 0 14px,#E8A33D 14px 28px)}
-.acts{display:flex;gap:6px;margin-top:10px;font-size:11.5px}
-.acts span{flex:1;text-align:center;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.5);border-radius:6px;padding:4px 2px;color:rgba(255,255,255,.95)}
-.acts span.on{background:var(--yellow);border-color:var(--ink);color:var(--ink);font-weight:700}
+  /* 徽章墙 */
+  .badge-box {
+    background: #2A3A5F;
+    border: 3px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  .badge-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .badge-item {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+  }
+  .badge-bean {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 4px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 0;
+  }
+  .bean-pixel { width: 100%; height: 100%; }
+  .badge-item.unlocked { color: #FFC93C; }
 
-.story-card{background:var(--paper);border:2.5px solid var(--ink);border-radius:14px;padding:16px;margin-top:16px;box-shadow:var(--shadow-sm)}
-.story-label{font-size:11px;font-weight:700;color:var(--red);letter-spacing:.14em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.story-label::before{content:"";width:10px;height:10px;background:var(--red);border:2px solid var(--ink);border-radius:3px}
-.story-text{font-size:16px;font-weight:700;line-height:1.65;margin-bottom:10px}
-.story-idea{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--teal);background:#E2F4E2;border:2px solid var(--teal);border-radius:20px;padding:4px 12px;font-weight:700}
+  /* 小队 */
+  .team-box {
+    background: #2A3A5F;
+    border: 3px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  .team-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #FFC93C;
+  }
+  .team-member {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 4px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+  }
+  .team-member:last-child { border-bottom: none; }
 
-.task-card{background:var(--paper);border:2.5px solid var(--ink);border-radius:14px;padding:16px;margin-top:14px;box-shadow:var(--shadow-sm)}
-.task-head{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;margin-bottom:4px;color:var(--ink-soft)}
-.task-head .dot{width:12px;height:12px;border-radius:3px;background:var(--yellow);border:2px solid var(--ink);animation:blink 1s steps(2) infinite}
-@keyframes blink{50%{opacity:.35}}
-.task-title{font-size:17px;font-weight:700;margin-bottom:6px}
-.task-sub{font-size:13px;color:var(--ink-soft);margin-bottom:14px;line-height:1.7}
-.task-zone{min-height:70px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
-.box-item{background:var(--yellow);border:3px solid var(--ink);border-radius:14px;padding:16px 18px;text-align:center;cursor:pointer;box-shadow:5px 5px 0 var(--ink);transition:all .08s;font-family:inherit}
-.box-item:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--ink)}
-.box-item:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
-.box-item b{display:block;font-size:19px;color:var(--ink)}
-.box-item span{font-size:12px;color:var(--ink-soft)}
-.result-badge{background:var(--green);color:#fff;border:3px solid var(--ink);border-radius:14px;padding:14px 20px;text-align:center;box-shadow:5px 5px 0 var(--ink);animation:fadeIn .25s steps(3)}
-.result-badge b{font-size:22px;display:block;text-shadow:2px 2px 0 rgba(35,40,60,.3)}
-.result-badge span{font-size:12.5px}
-.task-done{background:#E2F4E2;border:2.5px solid var(--green);border-radius:14px;padding:14px;text-align:center;font-size:14px;color:var(--teal);font-weight:700}
-.milestone{background:#FFF1D6;border:2.5px solid var(--gold);border-radius:14px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#8A5A14;line-height:1.7;box-shadow:3px 3px 0 rgba(245,166,35,.4)}
+  /* 结业页 */
+  #finish-screen { display: none; padding: 40px 20px; text-align: center; }
+  .finish-title {
+    font-size: 28px;
+    font-weight: 900;
+    color: #FFC93C;
+    text-shadow: 3px 3px 0 #000;
+    margin-bottom: 20px;
+  }
+  .finish-pig {
+    width: 140px;
+    height: 140px;
+    margin: 20px auto;
+  }
+  .finish-text {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+    color: rgba(255,255,255,0.85);
+  }
+  .restart-btn {
+    background: #C7000B;
+    color: #fff;
+    border: 3px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    padding: 12px 32px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+  }
 
-/* ===== 进度可视化（像素拼豆场景） ===== */
-.scene-card{background:var(--paper);border:2.5px solid var(--ink);border-radius:14px;padding:14px 16px;margin-top:14px;box-shadow:var(--shadow-sm)}
-.scene-label{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ink-soft);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.scene-label .pct{color:var(--red);font-size:14px;font-weight:700}
-.scene-stage{font-size:15px;font-weight:700;margin-bottom:12px}
-.scene-visual{height:124px;border:2.5px solid var(--ink);border-radius:10px;position:relative;overflow:hidden;background:#FDF6E3}
-.scene-visual svg{position:absolute;inset:0;width:100%;height:100%}
+  /* 吉祥物扑满 */
+  #piggy-mascot {
+    position: fixed;
+    right: 16px;
+    bottom: 20px;
+    z-index: 100;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  #piggy-mascot:active { transform: scale(0.95); }
+  .piggy-body { width: 64px; height: 64px; position: relative; }
+  .piggy-bubble {
+    position: absolute;
+    right: 70px;
+    top: -10px;
+    background: #fff;
+    color: #1E2A4A;
+    padding: 8px 12px;
+    border: 3px solid #000;
+    border-radius: 4px;
+    font-size: 12px;
+    box-shadow: 3px 3px 0 #000;
+    display: none;
+    max-width: 180px;
+    line-height: 1.4;
+    white-space: normal;
+  }
+  .piggy-bubble::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 20px;
+    border: 6px solid transparent;
+    border-left-color: #fff;
+  }
+  .piggy-exclaim {
+    position: absolute;
+    top: -8px;
+    right: 4px;
+    color: #FFC93C;
+    font-size: 16px;
+    font-weight: 900;
+    text-shadow: 2px 2px 0 #000;
+    animation: blink 1s infinite;
+    display: none;
+  }
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
 
-/* ===== 21天日历 ===== */
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;background:var(--paper);border:2.5px solid var(--ink);border-radius:14px;padding:12px;box-shadow:var(--shadow-sm)}
-.cal-cell{aspect-ratio:1;border-radius:8px;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;position:relative;background:var(--cream);transition:all .1s;box-shadow:2px 2px 0 var(--ink)}
-.cal-cell:hover{border-color:var(--red)}
-.cal-cell:active{box-shadow:none;transform:translate(2px,2px)}
-.cal-cell.today{border:3px solid var(--red);color:var(--red);background:#FFF1D6}
-.cal-cell.done{background:var(--green);border-color:var(--ink);color:#fff}
-.cal-cell.done::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:translate(-50%,-60%) rotate(-45deg)}
-.cal-cell.milestone::before{content:"";position:absolute;top:3px;left:50%;transform:translateX(-50%);width:8px;height:4px;background:var(--gold);border-radius:2px}
-.cal-cell.done.milestone::before{background:#FFF1D6}
-.cal-cell.current{outline:3px dashed var(--gold);outline-offset:1px}
-.cal-legend{display:flex;gap:14px;font-size:12px;color:var(--ink-soft);margin-top:10px;flex-wrap:wrap}
-.cal-legend i{display:inline-block;width:11px;height:11px;border:2px solid var(--ink);border-radius:3px;margin-right:5px;vertical-align:-1px}
+  /* 音乐按钮 */
+  .music-btn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 99;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid #FFC93C;
+    color: #FFC93C;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: inherit;
+  }
 
-/* ===== 小队 ===== */
-.squad-card{background:var(--paper);border:2.5px solid var(--ink);border-radius:14px;padding:16px 16px;margin-top:16px;box-shadow:var(--shadow-sm)}
-.squad-rule{font-size:12px;color:var(--ink-soft);margin-bottom:14px;display:flex;align-items:center;gap:6px}
-.squad-list{display:flex;flex-direction:column;gap:11px}
-.squad-row{display:flex;align-items:center;gap:12px}
-.squad-ava{width:38px;height:38px;border-radius:8px;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex:none;box-shadow:3px 3px 0 var(--ink)}
-.squad-name{font-size:14px;font-weight:700;width:64px;flex:none}
-.squad-bar{flex:1;height:12px;background:#E4DCC8;border:2px solid var(--ink);border-radius:6px;overflow:hidden}
-.squad-bar i{display:block;height:100%;border-right:2px solid var(--ink)}
-.squad-num{font-size:12px;color:var(--ink-soft);width:46px;text-align:right;flex:none}
+  /* 投币动画 */
+  .coin-fly {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: #FFC93C;
+    border: 2px solid #000;
+    border-radius: 50%;
+    z-index: 999;
+    pointer-events: none;
+    animation: coinFly 0.8s ease-in forwards;
+  }
+  @keyframes coinFly {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: translate(0, 100px) scale(0.5); }
+  }
 
-/* ===== 徽章（拼豆） ===== */
-.badge-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;background:var(--paper);border:2.5px solid var(--ink);border-radius:14px;padding:16px;box-shadow:var(--shadow-sm)}
-.badge{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
-.badge .ico{width:74px;height:74px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#F1EAD6;border:2.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);transition:all .2s}
-.badge.lit .ico{background:#FFF8EC;box-shadow:0 0 0 3px rgba(245,166,35,.35),3px 3px 0 var(--ink)}
-.badge span{font-size:11.5px;color:var(--ink-soft);line-height:1.35}
-.badge.lit span{color:var(--ink);font-weight:700}
-.badge .got{font-size:10.5px;color:var(--teal);font-weight:700}
-.badge .lock{font-size:10.5px;color:#A9A294}
-.bead-pop{animation:beadPop .28s ease backwards}
-@keyframes beadPop{0%{transform:scale(.2)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
-
-/* ===== 结业 ===== */
-.grad-hero{background:linear-gradient(180deg,#3A4370,#23283C);border:3px solid var(--ink);border-radius:14px;color:#fff;padding:28px 20px;text-align:center;margin-top:16px;position:relative;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}
-.grad-hero::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle, rgba(255,210,63,.5), transparent 70%)}
-.grad-hero .seal{width:66px;height:66px;border-radius:50%;background:var(--yellow);border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
-.grad-hero .seal svg{filter:drop-shadow(2px 2px 0 rgba(35,40,60,.4))}
-.grad-hero h2{font-size:22px;font-weight:700;margin-bottom:6px;position:relative;z-index:1}
-.grad-hero p{font-size:14px;color:#C9D2E0;position:relative;z-index:1}
-.grad-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-.grad-stat{background:var(--paper);border:2.5px solid var(--ink);border-radius:12px;padding:14px 8px;text-align:center;box-shadow:3px 3px 0 var(--ink)}
-.grad-stat b{display:block;font-size:21px;color:var(--red);font-weight:700}
-.grad-stat span{font-size:12px;color:var(--ink-soft)}
-.next-card{background:#E2F4E2;border:2.5px solid var(--teal);border-radius:14px;padding:16px 16px;margin-top:14px}
-.next-card h4{font-size:15px;font-weight:700;color:var(--teal);margin-bottom:6px}
-.next-card p{font-size:13px;color:var(--ink-soft);line-height:1.7}
-.next-card .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.next-card .chip{background:#fff;border:2px solid var(--teal);color:var(--teal);border-radius:16px;padding:4px 12px;font-size:12px;font-weight:600}
-
-/* ===== 底部导航 ===== */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:3px solid var(--ink);display:flex;z-index:30}
-@media (min-width:520px){.bottom-nav{bottom:24px;border-radius:16px;border:3px solid var(--ink);box-shadow:5px 5px 0 rgba(35,40,60,.5);width:calc(100% - 48px)}}
-.nav-btn{flex:1;background:none;border:0;padding:10px 0 9px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;font-family:inherit;color:#8A8578}
-.nav-btn svg{width:22px;height:22px;stroke-width:2.4}
-.nav-btn span{font-size:11px;font-weight:700}
-.nav-btn.on{color:var(--red)}
-.nav-btn.on svg{stroke:var(--red)}
-
-/* ===== 提示与合规 ===== */
-.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-90px);background:var(--ink);color:#fff;font-size:13px;padding:11px 20px;border-radius:10px;border:2.5px solid var(--yellow);z-index:99;transition:transform .25s steps(4);max-width:86%;text-align:center;box-shadow:4px 4px 0 rgba(0,0,0,.35)}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.compliance{font-size:10.5px;color:#A9A294;text-align:center;padding:16px 22px 24px;line-height:1.8}
-
-/* ===== 背景音乐开关（像素风） ===== */
-.bgm-btn{position:fixed;top:16px;right:max(12px,calc((100vw - 430px)/2 + 12px));z-index:60;width:46px;height:46px;border-radius:12px;border:2.5px solid var(--ink);background:rgba(255,248,236,.94);box-shadow:3px 3px 0 var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:inherit;transition:transform .08s ease, box-shadow .08s ease}
-.bgm-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
-.bgm-btn svg{width:22px;height:22px}
-.bgm-btn .mute{display:none;color:#A9A294}
-.bgm-btn.muted .play{display:none}
-.bgm-btn.muted .mute{display:block}
-@media (min-width:520px){.bgm-btn{right:calc((100vw - 430px)/2 + 12px)}}
-
-.hidden{display:none!important}</style>
+  .nav-btn {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.7);
+    padding: 6px 12px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+</style>
 </head>
 <body>
-<div class="stage">
-<div class="phone">
+<div class="app">
 
-<!-- ===== 视图：启动页（游戏标题画面） ===== -->
-<section id="view-start" class="view">
-  <div class="start-top">
-    <div class="sky-deco"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="cloud c1"></div><div class="cloud c2"></div>
-    <div class="start-brand">
-      <svg viewBox="0 0 32 32" shape-rendering="crispEdges" aria-hidden="true"><rect width="32" height="32" fill="#23283C"/><rect x="6" y="6" width="20" height="20" fill="#C7000B"/><rect x="10" y="10" width="4" height="4" fill="#FFD23F"/><rect x="16" y="10" width="4" height="4" fill="#FFD23F"/><rect x="10" y="16" width="4" height="4" fill="#FFFFFF"/><rect x="16" y="16" width="4" height="4" fill="#FFFFFF"/></svg>
-      <span class="fx">ICBC · MONEY RPG</span>
+  <!-- 启动页 -->
+  <div id="start-screen">
+    <div class="pixel-title">ICBC e-SHENG · 21-DAY PIGGY BANK</div>
+    <h1 class="main-title">工银e生</h1>
+    <div class="sub-title">· 21天扑满计划 ·</div>
+    
+    <svg class="start-pig" viewBox="0 0 32 32">
+      <rect x="8" y="10" width="16" height="14" fill="#FFB6C1"/>
+      <rect x="6" y="12" width="2" height="8" fill="#FFB6C1"/>
+      <rect x="24" y="12" width="2" height="8" fill="#FFB6C1"/>
+      <rect x="10" y="8" width="4" height="4" fill="#FFB6C1"/>
+      <rect x="18" y="8" width="4" height="4" fill="#FFB6C1"/>
+      <rect x="11" y="12" width="2" height="2" fill="#000"/>
+      <rect x="19" y="12" width="2" height="2" fill="#000"/>
+      <rect x="14" y="15" width="4" height="2" fill="#FF6B8A"/>
+      <rect x="13" y="6" width="6" height="2" fill="#C7000B"/>
+      <rect x="10" y="20" width="12" height="1" fill="#000"/>
+    </svg>
+
+    <button class="start-btn" onclick="startGame()">▶ 开始养扑满</button>
+    <div class="start-tip">每天5分钟 · 21天养成理财习惯</div>
+  </div>
+
+  <!-- 选线页 -->
+  <div id="select-screen">
+    <div class="select-title">选择你的人生剧本</div>
+    <div class="select-sub">每条剧本都是21天的攒钱成长之旅</div>
+
+    <div class="story-card" onclick="selectStory(0)">
+      <div class="story-icon">🏠</div>
+      <div class="story-name">我的小家</div>
+      <div class="story-desc">从毛坯到温馨小窝，和TA一起攒出第一个家</div>
     </div>
-    <div class="title-box">
-      <div class="kicker fx">21-DAY MONEY RPG</div>
-      <h1 class="fz">工银财趣</h1>
-      <div class="sub-line">21 天财富剧本</div>
-      <p>装修小家 · 宝贝计划 · 说走就走 · 自由Gap · 第一次独居<br>选一条人生剧情线，每天 5 分钟，把理财养成一场游戏。</p>
+    <div class="story-card" onclick="selectStory(1)">
+      <div class="story-icon">👶</div>
+      <div class="story-name">宝贝计划</div>
+      <div class="story-desc">迎接新生命，为宝宝攒好第一笔成长基金</div>
     </div>
-    <div class="start-cards">
-      <div><b class="fx">21</b><span>天完整剧本</span></div>
-      <div><b class="fx">5</b><span>分钟 / 天</span></div>
-      <div><b class="fx">5</b><span>条剧情线</span></div>
+    <div class="story-card" onclick="selectStory(2)">
+      <div class="story-icon">✈️</div>
+      <div class="story-name">说走就走</div>
+      <div class="story-desc">装满行李箱，去看想看的世界</div>
+    </div>
+    <div class="story-card" onclick="selectStory(3)">
+      <div class="story-icon">💼</div>
+      <div class="story-name">自由Gap</div>
+      <div class="story-desc">给自己一段gap期，攒够底气再出发</div>
+    </div>
+    <div class="story-card" onclick="selectStory(4)">
+      <div class="story-icon">🛏️</div>
+      <div class="story-name">第一次独居</div>
+      <div class="story-desc">离开家的第一个出租屋，也是自己的小天地</div>
     </div>
   </div>
-  <div class="start-bottom">
-    <button class="btn btn-start" onclick="go('#/quiz')"><span class="fx">▶ START</span>　开始我的 21 天</button>
-    <div class="note">DEMO v1.0 · 演示数据不连接真实账户 · 正式版理财跳转均走标准风险测评</div>
+
+  <!-- 主旅程页 -->
+  <div id="main-screen">
+    <div class="top-bar">
+      <button class="nav-btn" onclick="backToSelect()">← 换剧本</button>
+      <div class="story-label" id="storyName">我的小家</div>
+      <div class="day-label" id="dayLabel">第 1 天</div>
+    </div>
+
+    <div class="progress-box">
+      <div class="progress-text">
+        <span>扑满成长进度</span>
+        <span id="progressText">0 / 21</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="coin-count" id="coinCount">已攒金珠：0 颗</div>
+    </div>
+
+    <div class="today-card">
+      <div class="today-title" id="todayTitle">Day 1 · 觉醒：看见你的钱</div>
+      <div class="today-content" id="todayContent">
+        欢迎来到你的小家。今天先不着急攒钱，我们来做一件小事：把你这个月的收入和花出去的钱，认认真真看一遍。
+      </div>
+      <div class="today-knowledge" id="todayKnowledge">
+        💡 理财第一步：不是赚更多，而是先看清钱从哪来、到哪去。
+      </div>
+      <button class="task-btn" id="taskBtn" onclick="completeTask()">喂扑满一颗金珠 · 完成今日任务</button>
+    </div>
+
+    <div class="calendar-box">
+      <div class="cal-title">📅 21天旅程日历</div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+
+    <div class="badge-box">
+      <div class="cal-title">🎖️ 拼豆徽章收集册</div>
+      <div class="badge-grid" id="badgeGrid"></div>
+    </div>
+
+    <div class="team-box">
+      <div class="team-title">👥 我的攒钱小队</div>
+      <div class="team-member"><span>你</span><span id="myProgress">0/21</span></div>
+      <div class="team-member"><span>队友A</span><span>12/21</span></div>
+      <div class="team-member"><span>队友B</span><span>8/21</span></div>
+    </div>
   </div>
-</section>
 
-<!-- ===== 视图：财富人格测试 ===== -->
-<section id="view-quiz" class="view">
-  <div class="app-head">
-    <button class="back" onclick="go('#/start')" aria-label="返回">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-    </button>
-    <h2>测测你的财富人格</h2>
-    <span class="spacer"></span>
+  <!-- 结业页 -->
+  <div id="finish-screen">
+    <div class="finish-title">🎉 恭喜结业！</div>
+    <svg class="finish-pig" viewBox="0 0 32 32">
+      <rect x="7" y="9" width="18" height="16" fill="#FFD700"/>
+      <rect x="5" y="11" width="2" height="10" fill="#FFD700"/>
+      <rect x="25" y="11" width="2" height="10" fill="#FFD700"/>
+      <rect x="9" y="7" width="4" height="4" fill="#FFD700"/>
+      <rect x="19" y="7" width="4" height="4" fill="#FFD700"/>
+      <rect x="10" y="11" width="2" height="2" fill="#000"/>
+      <rect x="20" y="11" width="2" height="2" fill="#000"/>
+      <rect x="13" y="14" width="6" height="3" fill="#C7000B"/>
+      <rect x="12" y="4" width="8" height="3" fill="#C7000B"/>
+      <rect x="14" y="2" width="4" height="2" fill="#FFC93C"/>
+      <rect x="9" y="19" width="14" height="2" fill="#FFA500"/>
+    </svg>
+    <div class="finish-text">
+      21天前，你只是想试试攒钱<br>
+      21天后，你拥有了第一只装满的扑满<br><br>
+      这不是结束，而是你理财人生的开始<br>
+      工银e生，陪你攒好人生每一颗金珠
+    </div>
+    <button class="restart-btn" onclick="restart()">再养一只扑满</button>
   </div>
-  <div class="quiz-progress"><i id="quizBar" style="width:0%"></i></div>
-  <div class="quiz-step" id="quizStep">第 1 / 4 题</div>
-  <div class="quiz-q" id="quizQ"></div>
-  <div id="quizOpts"></div>
-  <button class="quiz-skip" onclick="skipQuiz()">跳过测试，直接选剧情线</button>
-</section>
-
-<!-- ===== 视图：剧情线选择 ===== -->
-<section id="view-choose" class="view">
-  <div class="app-head">
-    <button class="back" onclick="go('#/quiz')" aria-label="返回">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-    </button>
-    <h2>选择你的剧情线</h2>
-    <span class="spacer"></span>
-  </div>
-  <p style="font-size:13.5px;color:var(--ink-soft);margin-top:14px">五条线共用同一套打卡、存钱与养成引擎，只是故事不同。选一条你正在经历的生活，21天后收获第一笔真正属于自己的钱。</p>
-  <div id="lineList" style="margin-top:16px"></div>
-  <div class="line-tip">测试建议：<b id="quizSuggest" style="color:var(--red)">未测试</b>　·　小队规则：只比坚持，不比金额，不公开账户。</div>
-</section>
-
-<!-- ===== 视图：主旅程 ===== -->
-<section id="view-home" class="view">
-  <div class="app-head">
-    <button class="back" onclick="go('#/choose')" aria-label="返回">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-    </button>
-    <h2 id="headLineName">我的小家</h2>
-    <span class="spacer"></span>
-  </div>
-  <div id="homeContent"></div>
-</section>
-
-<!-- ===== 视图：结业 ===== -->
-<section id="view-grad" class="view">
-  <div class="app-head">
-    <button class="back" onclick="go('#/home')" aria-label="返回">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-    </button>
-    <h2>结业典礼</h2>
-    <span class="spacer"></span>
-  </div>
-  <div id="gradContent"></div>
-</section>
-
-<!-- ===== 底部导航 ===== -->
-<nav class="bottom-nav" id="bottomNav" style="display:none">
-  <button class="nav-btn on" data-tab="journey" onclick="switchTab('journey')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-    <span>旅程</span>
-  </button>
-  <button class="nav-btn" data-tab="calendar" onclick="switchTab('calendar')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-    <span>日历</span>
-  </button>
-  <button class="nav-btn" data-tab="squad" onclick="switchTab('squad')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.4 3.4-5 6.5-5s5.7 1.6 6.5 5"/><circle cx="17.5" cy="9.5" r="2.8"/><path d="M16.5 15.2c2.6.2 4.4 1.7 5 4.8"/></svg>
-    <span>小队</span>
-  </button>
-  <button class="nav-btn" data-tab="badge" onclick="switchTab('badge')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></svg>
-    <span>徽章</span>
-  </button>
-</nav>
-
-<button class="bgm-btn" id="bgmBtn" onclick="toggleBgm()" aria-label="背景音乐开关">
-  <svg class="play" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-  <svg class="mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M3 3l18 18"/></svg>
-</button>
-<audio id="bgm" src="assets/bgm.wav" loop preload="auto" style="display:none"></audio>
-<div class="toast" id="toast"></div>
-<div class="compliance hidden" id="compliance">演示环境：模拟数据，不连接真实账户，不产生真实交易。正式版中，任何理财、存款、保险跳转均走工商银行标准风险测评，收益表述受合规白名单约束。</div>
 
 </div>
+
+<!-- 全局悬浮吉祥物：扑满 -->
+<div id="piggy-mascot" onclick="toggleBubble()">
+  <div class="piggy-exclaim" id="piggyExclaim">!</div>
+  <div class="piggy-bubble" id="piggyBubble">今天也要喂我一颗金珠！</div>
+  <svg class="piggy-body" id="piggyBody" viewBox="0 0 32 32">
+    <rect x="8" y="10" width="16" height="14" fill="#FFB6C1"/>
+    <rect x="6" y="12" width="2" height="8" fill="#FFB6C1"/>
+    <rect x="24" y="12" width="2" height="8" fill="#FFB6C1"/>
+    <rect x="10" y="8" width="4" height="4" fill="#FFB6C1"/>
+    <rect x="18" y="8" width="4" height="4" fill="#FFB6C1"/>
+    <rect x="11" y="12" width="2" height="2" fill="#000"/>
+    <rect x="19" y="12" width="2" height="2" fill="#000"/>
+    <rect x="14" y="15" width="4" height="2" fill="#FF6B8A"/>
+    <rect x="13" y="6" width="6" height="2" fill="#C7000B"/>
+    <rect x="10" y="20" width="12" height="1" fill="#000"/>
+  </svg>
 </div>
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">♪</button>
 
 <script>
-/* ========== 数据：五条剧情线 × 21天（来源：项目计划书附录A-E） ========== */
-const LINES = {
-  home:{
-    id:'home', name:'我的小家', tagline:'从毛坯到温馨，每天添一件家具',
-    color:'#C7000B', scene:['毛坯房，一切从零开始','能住的小房间','像样的小家','温馨小家'],
-    goal:'攒下第一笔装修基金', products:['定期存款','装修分期'], icon:'home',
-    days:[
-      {d:1,story:'AI问几个问题，画出你小家的“毛坯房”现状',task:'完成财务画像问答',idea:'认识自己的收支',mode:'answer'},
-      {d:2,story:'存第一笔，铺上第一块地板',task:'先存下第一笔',idea:'开始比不开始强',mode:'save'},
-      {d:3,story:'昨天消费凑整，小家有了床',task:'把昨天消费的零头存下来',idea:'小钱的力量',mode:'round'},
-      {d:4,story:'盲盒抽个数字存一笔，添个冰箱',task:'打开盲盒，抽一个数字存下',idea:'不确定中的期待',mode:'blind'},
-      {d:5,story:'取消一个不再用的订阅，退掉“漏水的装修合同”',task:'找出一个闲置订阅并取消',idea:'看见隐性成本',mode:'cancel'},
-      {d:6,story:'猜昨天花了多少，差额存下',task:'猜一猜，猜错多少存多少',idea:'建立预算感',mode:'guess'},
-      {d:7,story:'第一幕结算：毛坯房变成能住的小房间',task:'回顾第一周，点亮里程碑',idea:'坚持的成就感',mode:'answer'},
-      {d:8,story:'剧情事件：水管爆了，你家有没有备用钱',task:'算一算你需要多少备用钱',idea:'以防万一的钱',mode:'calc'},
-      {d:9,story:'放一笔小钱看它30年后变成多少',task:'放一笔钱，看雪球怎么滚',idea:'钱生钱的雪球',mode:'save'},
-      {d:10,story:'今天不花非必要的钱，省下的存下',task:'今天忍住一笔非必要消费',idea:'对抗冲动消费',mode:'freeze'},
-      {d:11,story:'每月存一小笔，体验慢慢滚雪球',task:'设一笔“每月自动存”',idea:'定投的意义',mode:'save'},
-      {d:12,story:'算算某笔分期贷款真实的价格',task:'算一算分期的真实价格',idea:'看清真实成本',mode:'calc'},
-      {d:13,story:'按今天的气温存一笔',task:'今天几度，就存几块钱',idea:'让存钱有仪式感',mode:'temp'},
-      {d:14,story:'第二幕结算：小家像个家了',task:'回顾第二周，点亮里程碑',idea:'阶段复盘',mode:'answer'},
-      {d:15,story:'剧情事件：门口有人推销“神奇理财”',task:'识别一个典型的理财骗局',idea:'识别诈骗',mode:'answer'},
-      {d:16,story:'认识你的“经济名片”',task:'认识个人信用记录',idea:'个人信用',mode:'answer'},
-      {d:17,story:'算算身上每个月压着的石头',task:'盘一盘每月固定支出',idea:'负债成本',mode:'calc'},
-      {d:18,story:'先顾保障，再谈理财',task:'认识保障的先后顺序',idea:'保险的作用',mode:'answer'},
-      {d:19,story:'掷个骰子，按点数存一笔',task:'掷骰子，1点存10块',idea:'趣味存钱',mode:'roll'},
-      {d:20,story:'AI生成“你的小家21天故事”',task:'回顾你的21天旅程',idea:'综合复盘',mode:'answer'},
-      {d:21,story:'小家装修完成，获得结业证书',task:'点亮结业证书',idea:'理财习惯养成',mode:'answer'}
+// ===== 五条剧情线完整数据 =====
+const stories = [
+  {
+    name: '我的小家',
+    days: [
+      {title:'Day 1 · 觉醒：看见你的钱', content:'欢迎来到你的小家。今天先不着急攒钱，我们来做一件小事：把你这个月的收入和花出去的钱，认认真真看一遍。', knowledge:'💡 理财第一步：不是赚更多，而是先看清钱从哪来、到哪去。'},
+      {title:'Day 2 · 算一算装修要多少钱', content:'你看着空荡荡的毛坯房，开始盘算：刷墙、地板、家具、家电……先列个清单，不用一步到位，但心里要有数。', knowledge:'💡 目标越具体，攒钱越有动力。把“装修”拆成一件件小事。'},
+      {title:'Day 3 · 第一笔家装基金', content:'今天存入第一笔家装基金。不用多，100块也是开始。扑满肚子里有了第一颗金珠。', knowledge:'💡 智存宝：每月自动转存定期，小钱也能攒起来。'},
+      {title:'Day 4 · 避开装修套餐陷阱', content:'装修公司打来电话：“全屋整装只要3万9！” 记住：低价套餐永远是钩子，增项才是利润。', knowledge:'💡 凡是“先交定金再出方案”的，一律三思。'},
+      {title:'Day 5 · 自己动手也很香', content:'不是所有东西都要买新的。刷墙可以自己来，二手家具淘一淘，省钱又有温度。', knowledge:'💡 攒钱不是苦行，是把钱花在真正重要的地方。'},
+      {title:'Day 6 · 应急金很重要', content:'装修到一半水管爆了？别怕，你留了一笔“以防万一的钱”。', knowledge:'💡 应急金=3-6个月生活费，这是你的底气。'},
+      {title:'Day 7 · 第一周小结', content:'一周过去了，你的小家有了第一面墙。回头看，原来不知不觉已经走了这么远。', knowledge:'💡 每周复盘，比埋头攒钱更重要。'},
+      {title:'Day 8 · 积累：一件一件添家具', content:'第二周开始，我们给小家添第一件家具——沙发。每天攒一点，沙发基金慢慢涨。', knowledge:'💡 心愿定投：为每个小目标开一个专属账户。'},
+      {title:'Day 9 · 买家电不踩坑', content:'大促来了，各种满减看花眼。记住：需求第一，优惠第二。为了省钱买不需要的，才是最贵的。', knowledge:'💡 价格锚点是商家的套路，你只看自己的预算。'},
+      {title:'Day 10 · 两个人攒更快', content:'和TA一起攒钱，进度翻倍。设立共同账户，每一笔都是家的样子。', knowledge:'💡 情侣攒钱：公开透明，目标一致。'},
+      {title:'Day 11 · 物业费也是一笔钱', content:'以前没注意，物业费、取暖费、宽带费……固定支出也要提前留好。', knowledge:'💡 固定支出提前划出来，就不会突然没钱。'},
+      {title:'Day 12 · 旧物置换', content:'把不用的东西卖掉，换成小家的基金。断舍离的同时，还能回血。', knowledge:'💡 每一笔小钱，都是未来的大钱。'},
+      {title:'Day 13 · 装修贷怎么选', content:'差一点钱装修？银行装修分期了解一下。看清利率和手续费，别被套路。', knowledge:'💡 年化利率才是真实成本，不要只看每月还多少。'},
+      {title:'Day 14 · 第二周小结', content:'沙发有了，电视有了，小家越来越像样子了。', knowledge:'💡 积累的力量：每天一点点，时间会给你答案。'},
+      {title:'Day 15 · 守护：装修防骗指南', content:'第三周，我们学保护自己。“免费设计”背后是高价材料，“熟人介绍”可能更坑。', knowledge:'💡 凡事留合同，口头承诺不算数。'},
+      {title:'Day 16 · 定金还是订金', content:'一字之差，天差地别。定金不能退，订金可以退。签合同前看清楚。', knowledge:'💡 法律常识也是理财的一部分。'},
+      {title:'Day 17 · 空气质量不能省', content:'装修可以省，除醛不能省。健康是最大的财富。', knowledge:'💡 有些钱省了，未来会花更多。'},
+      {title:'Day 18 · 家财险了解一下', content:'房子装好了，给它一份保障。家财险不贵，安心很贵。', knowledge:'💡 保险是兜底，不是消费。'},
+      {title:'Day 19 · 入住前的准备', content:'终于要入住了。算一算搬家成本，安排好时间。', knowledge:'💡 凡事提前规划，就不会临时慌乱花钱。'},
+      {title:'Day 20 · 小家的意义', content:'站在自己装修的小家里，你会明白：攒钱不是目的，生活才是。', knowledge:'💡 钱是工具，幸福才是目标。'},
+      {title:'Day 21 · 我们的家', content:'21天，从毛坯到温馨小家。第一只扑满满了，你们的故事才刚开始。', knowledge:'💡 恭喜完成第一条剧本！解锁“小家守护者”徽章。'}
     ]
   },
-  baby:{
-    id:'baby', name:'宝贝计划', tagline:'婴儿房每天布置一件用品',
-    color:'#E07A3F', scene:['空空的婴儿房','有了婴儿床','有了模样','布置完成的婴儿房'],
-    goal:'攒下第一笔育儿基金', products:['儿童账户','教育金','保险'], icon:'baby',
-    days:[
-      {d:1,story:'AI问你们的家庭计划，画出婴儿房现在的空房间',task:'完成家庭财务画像问答',idea:'认识家庭现状',mode:'answer'},
-      {d:2,story:'存第一笔，给婴儿房挂上婴儿床',task:'存下第一笔，挂上婴儿床',idea:'开始比犹豫强',mode:'save'},
-      {d:3,story:'算一笔产检与生产账单，凑整存下',task:'把账单的零头存下来',idea:'看清真实开销',mode:'round'},
-      {d:4,story:'盲盒抽个数字存，添一台奶瓶消毒器',task:'打开盲盒，抽一个数字存下',idea:'不确定中的期待',mode:'blind'},
-      {d:5,story:'列一个“不买清单”，退掉过度囤货',task:'列出不买清单，省下囤货钱',idea:'理性消费',mode:'cancel'},
-      {d:6,story:'猜这个月育儿开支，差额存下',task:'猜一猜，猜错多少存多少',idea:'建立预算感',mode:'guess'},
-      {d:7,story:'第一幕结算：婴儿房有了床',task:'回顾第一周，点亮里程碑',idea:'坚持的成就感',mode:'answer'},
-      {d:8,story:'剧情事件：宝宝用品突然涨价，家里有没有备用钱',task:'算一算应急备用钱',idea:'以防万一的钱',mode:'calc'},
-      {d:9,story:'算一笔0-3岁育儿基金放着不动会怎样',task:'放一笔钱，看雪球怎么滚',idea:'钱生钱的雪球',mode:'save'},
-      {d:10,story:'今天不买网红母婴用品，省下的存下',task:'今天忍住一笔智商税',idea:'拒绝智商税',mode:'freeze'},
-      {d:11,story:'每月固定存一小笔教育金',task:'设一笔“每月教育金”',idea:'长期定投',mode:'save'},
-      {d:12,story:'算算“母婴年卡”到底贵不贵',task:'算一算年卡的真实价格',idea:'看清真实价格',mode:'calc'},
-      {d:13,story:'按今天气温存一笔，给宝宝添件应季衣物',task:'今天几度，就存几块钱',idea:'存钱的仪式感',mode:'temp'},
-      {d:14,story:'第二幕结算：婴儿房有了模样',task:'回顾第二周，点亮里程碑',idea:'阶段复盘',mode:'answer'},
-      {d:15,story:'剧情事件：有人推销“神童早教班”“育儿神药”',task:'识别一个典型的育儿骗局',idea:'识别诈骗',mode:'answer'},
-      {d:16,story:'认识家庭的“经济名片”',task:'认识家庭信用记录',idea:'个人与家庭信用',mode:'answer'},
-      {d:17,story:'算算家里每月固定开支压得有多重',task:'盘一盘家庭每月固定支出',idea:'家庭预算',mode:'calc'},
-      {d:18,story:'先给大人保障，再给孩子谈理财',task:'认识保障的先后顺序',idea:'保险的顺序',mode:'answer'},
-      {d:19,story:'掷个骰子，按点数存一笔',task:'掷骰子，1点存10块',idea:'趣味存钱',mode:'roll'},
-      {d:20,story:'AI生成“你们的育儿基金故事”',task:'回顾你的21天旅程',idea:'综合复盘',mode:'answer'},
-      {d:21,story:'婴儿房布置完成，生成育儿储蓄计划',task:'点亮结业证书',idea:'理财习惯养成',mode:'answer'}
+  {
+    name: '宝贝计划',
+    days: [
+      {title:'Day 1 · 觉醒：迎接新生命', content:'得知宝宝要来的那一刻，你开始想：我准备好当爸妈了吗？先从钱开始准备吧。', knowledge:'💡 育儿是长期工程，早准备早轻松。'},
+      {title:'Day 2 · 算一算生娃要多少钱', content:'产检、生产、月子、奶粉、尿不湿……列个清单，心里有底。', knowledge:'💡 把大目标拆成小数字，就不那么可怕了。'},
+      {title:'Day 3 · 第一笔宝宝基金', content:'今天存入第一笔宝宝基金。小小的一笔，是给TA的第一份礼物。', knowledge:'💡 儿童账户：从小给宝宝攒钱，培养财商。'},
+      {title:'Day 4 · 生育保险别浪费', content:'生育险能报多少钱？产假工资怎么发？这些福利先搞清楚。', knowledge:'💡 社保里藏着很多福利，别白白错过。'},
+      {title:'Day 5 · 母婴用品不是越贵越好', content:'进口奶粉、高端婴儿车……商家总说“给宝宝最好的”，但适合的才是最好的。', knowledge:'💡 消费主义最爱绑架父母的爱。'},
+      {title:'Day 6 · 待产包清单', content:'准备待产包，只买刚需，不买焦虑。很多东西生完才发现根本没用。', knowledge:'💡 清单购物法：列好再买，不逛不囤。'},
+      {title:'Day 7 · 第一周小结', content:'一周过去，宝宝基金有了第一笔积累。期待和TA见面的日子。', knowledge:'💡 等待的过程也是一种幸福。'},
+      {title:'Day 8 · 积累：每月固定存一点', content:'第二周，养成每月发工资先存宝宝基金的习惯。', knowledge:'💡 教育金：越早开始，复利越给力。'},
+      {title:'Day 9 · 警惕“育儿神药”', content:'朋友圈的“增高药”“补脑神药”全是智商税。宝宝健康，靠科学不靠玄学。', knowledge:'💡 凡是包治百病的，全是骗子。'},
+      {title:'Day 10 · 儿童医保一定要办', content:'宝宝出生第一件事：办医保。小病小痛都能报，花不了多少钱。', knowledge:'💡 国家福利，人手一份。'},
+      {title:'Day 11 · 月嫂还是月子中心', content:'怎么选？看预算，也看需求。没有标准答案，适合自己就好。', knowledge:'💡 最贵的不一定是最好的。'},
+      {title:'Day 12 · 二手母婴也很香', content:'婴儿床、安全座椅、绘本……很多东西用不久，买二手性价比超高。', knowledge:'💡 宝宝长得快，不必追求全新。'},
+      {title:'Day 13 · 教育金怎么存', content:'想让宝宝以后读书无忧？教育金提前规划。强制储蓄，专款专用。', knowledge:'💡 年金险、定期定投，都是教育金的好工具。'},
+      {title:'Day 14 · 第二周小结', content:'两周了，宝宝基金越来越厚实。你也越来越像个靠谱的爸妈。', knowledge:'💡 父母的规划，是孩子的起跑线。'},
+      {title:'Day 15 · 守护：儿童防骗指南', content:'第三周，学保护宝宝。“免费测微量元素”“上门拍满月照”都是套路。', knowledge:'💡 凡是免费的，往往最贵。'},
+      {title:'Day 16 · 疫苗怎么选', content:'一类苗必打，二类苗看预算。不是越贵越好，也不是越便宜越省。', knowledge:'💡 健康投资，该花就花。'},
+      {title:'Day 17 · 少儿医保+商业险', content:'社保是基础，商业险做补充。大病小病都有兜底。', knowledge:'💡 保险先保大人，再保小孩。'},
+      {title:'Day 18 · 产后恢复不踩坑', content:'产后修复机构套路多，几万块的套餐未必有用。听医生的，别听销售的。', knowledge:'💡 医疗消费，认准正规机构。'},
+      {title:'Day 19 · 带娃出行准备', content:'第一次带宝宝出门，东西一大堆。提前列清单，从容不慌乱。', knowledge:'💡 有准备，就不焦虑。'},
+      {title:'Day 20 · 为人父母的意义', content:'看着宝宝熟睡的脸，你会明白：所有的辛苦和攒钱，都值得。', knowledge:'💡 爱是最大的财富。'},
+      {title:'Day 21 · 你好，宝贝', content:'21天，从得知消息到做好准备。第一只扑满满了，你们的三口之家才刚开始。', knowledge:'💡 恭喜完成！解锁“超级爸妈”徽章。'}
     ]
   },
-  travel:{
-    id:'travel', name:'说走就走', tagline:'每天往行李箱装一件出行装备',
-    color:'#2A7FB8', scene:['空行李箱','第一件装备','越来越满','装满的行李箱'],
-    goal:'攒下第一笔旅行基金', products:['旅行钱包','外币兑换'], icon:'travel',
-    days:[
-      {d:1,story:'AI问你梦想去哪，画出你的目的地地图',task:'完成旅行梦想清单问答',idea:'明确存钱目标',mode:'answer'},
-      {d:2,story:'存第一笔，先攒下机票钱的零头',task:'存下第一笔机票钱',idea:'开始',mode:'save'},
-      {d:3,story:'昨天消费凑整存，往行李箱里装了相机',task:'把昨天消费的零头存下来',idea:'小钱的力量',mode:'round'},
-      {d:4,story:'盲盒抽个数字存，装了泳衣',task:'打开盲盒，抽一个数字存下',idea:'不确定中的期待',mode:'blind'},
-      {d:5,story:'退掉一个用不上的会员，钱进旅行基金',task:'退掉闲置会员，钱进旅行基金',idea:'看见隐性成本',mode:'cancel'},
-      {d:6,story:'猜这个月能存多少，差额补上',task:'猜一猜，猜错多少存多少',idea:'建立预算感',mode:'guess'},
-      {d:7,story:'第一幕：行李箱有了第一件装备',task:'回顾第一周，点亮里程碑',idea:'坚持的成就感',mode:'answer'},
-      {d:8,story:'剧情事件：特价机票突然抢光，你有没有备用钱',task:'算一算旅行备用金',idea:'以防万一的钱',mode:'calc'},
-      {d:9,story:'算旅行基金放着不动会怎样',task:'放一笔钱，看雪球怎么滚',idea:'钱生钱的雪球',mode:'save'},
-      {d:10,story:'这周少点一次外卖，钱进旅行基金',task:'今天忍住一次外卖',idea:'不消费',mode:'freeze'},
-      {d:11,story:'每月固定存一笔旅行基金',task:'设一笔“每月旅行基金”',idea:'定投的意义',mode:'save'},
-      {d:12,story:'算算“低价团”背后真实的价格',task:'算一算低价团的真实成本',idea:'看清真实成本',mode:'calc'},
-      {d:13,story:'按目的地今天的气温存一笔',task:'目的地几度，就存几块钱',idea:'存钱的仪式感',mode:'temp'},
-      {d:14,story:'第二幕结算：行李箱越来越满',task:'回顾第二周，点亮里程碑',idea:'阶段复盘',mode:'answer'},
-      {d:15,story:'剧情事件：收到“中奖免费游”短信',task:'识别一个典型的旅行骗局',idea:'识别诈骗',mode:'answer'},
-      {d:16,story:'出门在外，身份证和银行卡别丢',task:'认识证件与账户安全',idea:'证件与账户安全',mode:'answer'},
-      {d:17,story:'算算穷游与舒适游的真实差价',task:'算一算两种玩法的差价',idea:'预算对比',mode:'calc'},
-      {d:18,story:'旅行险到底保什么',task:'认识旅行险的保障范围',idea:'出行保障',mode:'answer'},
-      {d:19,story:'掷个骰子，按点数存一笔',task:'掷骰子，1点存10块',idea:'趣味存钱',mode:'roll'},
-      {d:20,story:'AI生成“你的旅行故事”',task:'回顾你的21天旅程',idea:'综合复盘',mode:'answer'},
-      {d:21,story:'行李箱装满，结业并生成旅行预算',task:'点亮结业证书',idea:'理财习惯养成',mode:'answer'}
+  {
+    name: '说走就走',
+    days: [
+      {title:'Day 1 · 觉醒：想去看世界', content:'你盯着手机里的风景照，突然想：为什么不能说走就走？先从攒旅行基金开始。', knowledge:'💡 所有的“说走就走”，背后都有准备。'},
+      {title:'Day 2 · 选目的地', content:'海边还是雪山？大城市还是小众村落？先定目的地，再算预算。', knowledge:'💡 目标明确，攒钱才有方向。'},
+      {title:'Day 3 · 第一笔旅行基金', content:'今天存入第一笔旅行基金。每一块钱，都离目的地更近一步。', knowledge:'💡 旅行钱包：专门账户，专款专用。'},
+      {title:'Day 4 · 机票套路多', content:'“99元飞全国”？别信。低价票要么退改费巨贵，要么藏着捆绑消费。', knowledge:'💡 机票总价才是真价格，别只看票面。'},
+      {title:'Day 5 · 住宿怎么选', content:'酒店、民宿、青旅各有各的好。安全第一，舒适第二，价格第三。', knowledge:'💡 多看真实评价，别被网图骗。'},
+      {title:'Day 6 · 旅行预算表', content:'交通、住宿、吃饭、门票、购物……把预算拆细，心里有数不超支。', knowledge:'💡 预算不是束缚，是让你玩得更安心。'},
+      {title:'Day 7 · 第一周小结', content:'一周过去，旅行基金有了第一笔。地图上的那个点，越来越近了。', knowledge:'💡 期待也是旅行的一部分。'},
+      {title:'Day 8 · 积累：每天攒一点', content:'第二周，每天往旅行基金里存一点。积少成多。', knowledge:'💡 积存金：1克起投，灵活存取，小钱也能投。'},
+      {title:'Day 9 · 警惕低价旅游团', content:'“599元云南双飞6日”？购物点比景点多，不买不让走。低价团都是坑。', knowledge:'💡 明显低于成本的，一定有诈。'},
+      {title:'Day 10 · 外币怎么换', content:'出国旅行，换外币有讲究。银行换比机场划算，提前关注汇率。', knowledge:'💡 外汇预约：手机银行就能办，不用跑网点。'},
+      {title:'Day 11 · 旅行保险别忘买', content:'几十块钱的旅行险，航班延误、行李丢失都能赔。买个安心。', knowledge:'💡 出门在外，保障先行。'},
+      {title:'Day 12 · 免票/半价攻略', content:'学生证、教师资格证、老年证……很多景点有优惠，别忘带。', knowledge:'💡 该省的省，该花的花。'},
+      {title:'Day 13 · 行李打包技巧', content:'断舍离式打包：只带必需品。行李越轻，玩得越爽。', knowledge:'💡 旅行的意义，不是带更多东西回来。'},
+      {title:'Day 14 · 第二周小结', content:'两周了，旅行基金差不多够了。开始做攻略吧！', knowledge:'💡 努力攒钱，然后好好享受。'},
+      {title:'Day 15 · 守护：旅行防骗', content:'第三周，学保护自己。“老乡带路”“免费拍照”“特色体验”都是宰客套路。', knowledge:'💡 景区里的“热心人”，多半是生意人。'},
+      {title:'Day 16 · 住宿安全', content:'住酒店反锁门，检查摄像头。女生独自出行更要小心。', knowledge:'💡 安全永远是第一位的。'},
+      {title:'Day 17 · 银行卡防盗刷', content:'出门带一张专用卡，别把所有钱都放一张卡里。开通交易提醒。', knowledge:'💡 工银信使：账户变动实时通知。'},
+      {title:'Day 18 · 购物陷阱多', content:'旅游特产、玉石珠宝、当地药材……很多都是专门宰游客的。', knowledge:'💡 不懂的东西，别乱买。'},
+      {title:'Day 19 · 出发前检查', content:'证件、机票、酒店、行李……最后检查一遍。', knowledge:'💡 提前准备，从容出发。'},
+      {title:'Day 20 · 旅行的意义', content:'站在向往已久的风景里，你会明白：攒钱的辛苦，在这一刻都值了。', knowledge:'💡 世界那么大，值得去看看。'},
+      {title:'Day 21 · 出发！', content:'21天，从念头到出发。第一只扑满满了，你的下一站在哪里？', knowledge:'💡 恭喜完成！解锁“世界玩家”徽章。'}
     ]
   },
-  gap:{
-    id:'gap', name:'自由Gap', tagline:'请假条从“不敢停”到“已批准”',
-    color:'#6A5ACD', scene:['不敢停的请假条','有了第一个角','厚了一点','“已批准”'],
-    goal:'攒下Gap安全垫', products:['活期理财','薪资管家'], icon:'gap',
-    days:[
-      {d:1,story:'AI问你为什么想停，算你离“敢辞职”还差多少',task:'完成Gap安全垫画像问答',idea:'现状盘点',mode:'answer'},
-      {d:2,story:'存第一笔，请假条写下第一笔“勇气值”',task:'存下第一笔勇气值',idea:'开始',mode:'save'},
-      {d:3,story:'昨天消费凑整存，勇气值加一点',task:'把昨天消费的零头存下来',idea:'小钱的力量',mode:'round'},
-      {d:4,story:'盲盒抽个数字存，勇气值再加',task:'打开盲盒，抽一个数字存下',idea:'不确定中的期待',mode:'blind'},
-      {d:5,story:'砍掉一个“为撑面子”的开销',task:'砍掉一项面子开销',idea:'理性消费',mode:'cancel'},
-      {d:6,story:'猜这个月能省多少，差额补上',task:'猜一猜，猜错多少存多少',idea:'建立预算感',mode:'guess'},
-      {d:7,story:'第一幕：请假条有了第一个角',task:'回顾第一周，点亮里程碑',idea:'坚持的成就感',mode:'answer'},
-      {d:8,story:'剧情事件：辞职前突然生病，你有没有备用钱',task:'算一算生病应急金',idea:'以防万一的钱',mode:'calc'},
-      {d:9,story:'算“裸辞安全垫”能撑几个月',task:'算一算安全垫能撑多久',idea:'安全垫思维',mode:'calc'},
-      {d:10,story:'这个月不买非必要的东西',task:'今天忍住一笔非必要消费',idea:'不消费',mode:'freeze'},
-      {d:11,story:'每月固定存一笔Gap基金',task:'设一笔“每月Gap基金”',idea:'定投',mode:'save'},
-      {d:12,story:'算算裸辞后社保自己交的真实成本',task:'算一算自己交社保的成本',idea:'看清真实成本',mode:'calc'},
-      {d:13,story:'按今天气温存一笔',task:'今天几度，就存几块钱',idea:'存钱的仪式感',mode:'temp'},
-      {d:14,story:'第二幕结算：安全垫厚了一点',task:'回顾第二周，点亮里程碑',idea:'阶段复盘',mode:'answer'},
-      {d:15,story:'剧情事件：有人推荐“Gap期间躺赚项目”',task:'识别一个典型的躺赚骗局',idea:'识别诈骗',mode:'answer'},
-      {d:16,story:'你的“经济名片”不能断',task:'认识征信与社保连续性',idea:'征信与社保连续',mode:'answer'},
-      {d:17,story:'算算Gap期间每月最低开支',task:'算一算每月最低开销',idea:'预算规划',mode:'calc'},
-      {d:18,story:'Gap期间医疗保障怎么办',task:'认识Gap期间的保障',idea:'保障意识',mode:'answer'},
-      {d:19,story:'掷个骰子，按点数存一笔',task:'掷骰子，1点存10块',idea:'趣味存钱',mode:'roll'},
-      {d:20,story:'AI生成“你的Gap计划”',task:'回顾你的21天旅程',idea:'综合复盘',mode:'answer'},
-      {d:21,story:'请假条变“已批准”，生成Gap财务计划',task:'点亮结业证书',idea:'理财习惯养成',mode:'answer'}
+  {
+    name: '自由Gap',
+    days: [
+      {title:'Day 1 · 觉醒：想停下来歇歇', content:'上班上累了，想gap一段时间？先别急着辞职，算一算你能歇多久。', knowledge:'💡 裸辞之前，先算好你的“fire数字”。'},
+      {title:'Day 2 · 你的底气有多少', content:'存款多少？每月固定支出多少？没有收入能撑几个月？', knowledge:'💡 应急金是gap期的底气。'},
+      {title:'Day 3 · 第一笔Gap基金', content:'今天存入第一笔Gap基金。这是你的自由准备金。', knowledge:'💡 天天盈：随存随取，收益比活期高。'},
+      {title:'Day 4 · 别信“躺赚项目”', content:'gap期刷到“足不出户月入过万”“被动收入”？全是割韭菜的。', knowledge:'💡 你贪的是利息，人家图的是本金。'},
+      {title:'Day 5 · 社保别断缴', content:'辞职了社保怎么办？可以自己交，也可以找过渡。断缴影响很多。', knowledge:'💡 社保是基础保障，尽量别断。'},
+      {title:'Day 6 · Gap期预算', content:'gap期间不上班，消费也要降级。做一份“待业预算”。', knowledge:'💡 收入降，支出也跟着降，就不会慌。'},
+      {title:'Day 7 · 第一周小结', content:'一周过去，Gap基金有了第一笔。你离自由又近了一步。', knowledge:'💡 真正的自由，是有选择的权利。'},
+      {title:'Day 8 · 积累：为自由攒底气', content:'第二周，继续为gap期攒底气。每多存一块，就多一天的自由。', knowledge:'💡 强制储蓄：发工资先存一部分，剩下的再花。'},
+      {title:'Day 9 · 副业不是那么好做的', content:'人人都在说副业赚钱，但大多数人都是交学费。主业做不好，副业也白搭。', knowledge:'💡 先把主业做到极致，再考虑副业。'},
+      {title:'Day 10 · 学习也是投资', content:'gap期不是纯躺平，学个新技能，回来更好找工作。', knowledge:'💡 投资自己，永远不会亏。'},
+      {title:'Day 11 · 医保怎么自己交', content:'居民医保、灵活就业社保……搞清楚哪种适合你。', knowledge:'💡 手机银行就能缴社保，不用跑大厅。'},
+      {title:'Day 12 · 降低生活成本', content:'自己做饭比外卖省，取消没用的会员。gap期省钱就是赚钱。', knowledge:'💡 小钱积累起来，就是大数目。'},
+      {title:'Day 13 · 公积金怎么用', content:'辞职了公积金怎么办？可以提取，也可以转移。', knowledge:'💡 公积金是隐形存款，别浪费。'},
+      {title:'Day 14 · 第二周小结', content:'两周了，Gap基金越来越厚实。你可以更从容地做决定了。', knowledge:'💡 钱给你说“不”的权利。'},
+      {title:'Day 15 · 守护：避坑指南', content:'第三周，学保护自己。gap期最容易遇到的坑：培训贷、加盟骗局、刷单。', knowledge:'💡 凡是让你先交钱的工作，全是骗子。'},
+      {title:'Day 16 · 培训贷套路深', content:'“先学习后付费”“包就业”？最后工作没找到，还背了一身债。', knowledge:'💡 求职遇到贷款，直接走。'},
+      {title:'Day 17 · 加盟都是坑', content:'奶茶店、便利店……加盟90%都是亏的。别被“轻松当老板”忽悠。', knowledge:'💡 当老板没那么容易。'},
+      {title:'Day 18 · 刷单违法', content:'“足不出户日赚300”？刷单是违法行为，而且全是诈骗。', knowledge:'💡 贪小便宜吃大亏。'},
+      {title:'Day 19 · 重新出发的准备', content:'gap期快结束了，更新简历，调整状态。', knowledge:'💡 休息是为了更好地出发。'},
+      {title:'Day 20 · 自由的意义', content:'这段gap期，你想清楚了很多事。钱不是目的，是让你有选择权。', knowledge:'💡 真正的富有，是时间的自由。'},
+      {title:'Day 21 · 新的开始', content:'21天，从焦虑到从容。第一只扑满满了，你有底气选择自己想要的生活。', knowledge:'💡 恭喜完成！解锁“自由玩家”徽章。'}
     ]
   },
-  solo:{
-    id:'solo', name:'第一次独居', tagline:'空出租屋逐步布置成温馨小屋',
-    color:'#3E8E7E', scene:['空荡荡的出租屋','有了光','越来越像家','温馨小屋'],
-    goal:'攒下第一笔独居基金', products:['工资卡','储蓄卡'], icon:'solo',
-    days:[
-      {d:1,story:'AI问你现在的出租屋什么样，画出来',task:'完成独居画像问答',idea:'认识现状',mode:'answer'},
-      {d:2,story:'存第一笔，给自己买一盏台灯',task:'存下第一笔，买盏台灯',idea:'开始',mode:'save'},
-      {d:3,story:'昨天消费凑整存，添一套舒服床品',task:'把昨天消费的零头存下来',idea:'小钱的力量',mode:'round'},
-      {d:4,story:'盲盒抽个数字存，添一盆小绿植',task:'打开盲盒，抽一个数字存下',idea:'不确定中的期待',mode:'blind'},
-      {d:5,story:'找出合租账单里的“隐形收费”',task:'找出账单里的隐形收费',idea:'看清账单',mode:'cancel'},
-      {d:6,story:'猜这个月水电网一共多少',task:'猜一猜，猜错多少存多少',idea:'建立预算感',mode:'guess'},
-      {d:7,story:'第一幕：出租屋有了光',task:'回顾第一周，点亮里程碑',idea:'坚持的成就感',mode:'answer'},
-      {d:8,story:'剧情事件：房东突然要涨租，你有没有备用钱',task:'算一算涨租应急金',idea:'以防万一的钱',mode:'calc'},
-      {d:9,story:'算“搬家基金”放着不动会怎样',task:'放一笔钱，看雪球怎么滚',idea:'钱生钱的雪球',mode:'save'},
-      {d:10,story:'这周少点一次外卖，自己做一顿',task:'今天自己做饭，省下外卖钱',idea:'不消费与生活技能',mode:'freeze'},
-      {d:11,story:'每月固定存一笔“独居基金”',task:'设一笔“每月独居基金”',idea:'定投',mode:'save'},
-      {d:12,story:'算算押一付三加中介费的真实成本',task:'算一算租房真实成本',idea:'看清真实成本',mode:'calc'},
-      {d:13,story:'按今天气温存一笔，给房间添件应季小物',task:'今天几度，就存几块钱',idea:'存钱的仪式感',mode:'temp'},
-      {d:14,story:'第二幕结算：房间越来越像家',task:'回顾第二周，点亮里程碑',idea:'阶段复盘',mode:'answer'},
-      {d:15,story:'剧情事件：遇到二房东或虚假房源',task:'识别一个典型的租房骗局',idea:'识别租房诈骗',mode:'answer'},
-      {d:16,story:'开始自己交水电煤，认识信用记录',task:'认识你的第一份信用记录',idea:'个人信用',mode:'answer'},
-      {d:17,story:'算算每月固定开支占收入的比例',task:'算一算收支比例',idea:'收支比例',mode:'calc'},
-      {d:18,story:'一个人住，财产与意外怎么保障',task:'认识独居的保障',idea:'保障意识',mode:'answer'},
-      {d:19,story:'掷个骰子，按点数存一笔',task:'掷骰子，1点存10块',idea:'趣味存钱',mode:'roll'},
-      {d:20,story:'AI生成“你的独居生活账本”',task:'回顾你的21天旅程',idea:'综合复盘',mode:'answer'},
-      {d:21,story:'空房间变成温馨小屋，结业',task:'点亮结业证书',idea:'理财习惯养成',mode:'answer'}
+  {
+    name: '第一次独居',
+    days: [
+      {title:'Day 1 · 觉醒：一个人的生活', content:'终于要搬出去住了。自由的代价是，所有事都要自己扛。先从管钱开始。', knowledge:'💡 独居是最好的理财实习。'},
+      {title:'Day 2 · 房租占比多少合适', content:'房租太贵会吃掉所有工资。建议房租不超过月收入的30%。', knowledge:'💡 收入的分配：房租30%，生活40%，储蓄30%。'},
+      {title:'Day 3 · 第一笔独居基金', content:'今天存入第一笔独居基金。押金、中介费、首月房租，都是要准备的。', knowledge:'💡 工银薪管家：工资到账自动分配。'},
+      {title:'Day 4 · 租房黑中介套路', content:'“房源已租，我给你推荐别的”“押金不退”“各种杂费”……黑中介套路多。', knowledge:'💡 找房走正规渠道，别信路边小广告。'},
+      {title:'Day 5 · 看房要注意什么', content:'采光、隔音、水电、家电、邻居……看房别只看装修。', knowledge:'💡 住得舒服，比好看重要。'},
+      {title:'Day 6 · 合同一定要看', content:'租房合同别乱签。租期、押金、维修责任、违约条款，一条条看清楚。', knowledge:'💡 口头承诺不算数，写在合同里才作数。'},
+      {title:'Day 7 · 第一周小结', content:'一周过去，房子找好了，独居生活即将开始。', knowledge:'💡 第一步总是最难的。'},
+      {title:'Day 8 · 积累：布置你的小窝', content:'第二周，开始布置出租屋。一点点添置，慢慢有家的感觉。', knowledge:'💡 生活是自己的，房子是租的。'},
+      {title:'Day 9 · 二手家具真香', content:'衣柜、书桌、椅子……买二手的，搬家时也不心疼。', knowledge:'💡 能用就行，不必追求全新。'},
+      {title:'Day 10 · 水电费也是钱', content:'以前在家没感觉，自己交电费才知道：空调、热水器都是电老虎。', knowledge:'💡 养成随手关灯的习惯，小钱也是钱。'},
+      {title:'Day 11 · 自己做饭省钱又健康', content:'外卖一顿30块，自己做饭10块钱搞定。一个月能省不少。', knowledge:'💡 吃饭是最大的隐形支出。'},
+      {title:'Day 12 · 宽带怎么选', content:'三大运营商对比，别办捆绑套餐。单宽带最划算。', knowledge:'💡 捆绑套餐看起来便宜，其实绑了很多没用的。'},
+      {title:'Day 13 · 物业费网费公摊', content:'和室友合租，费用算清楚。亲兄弟明算账，关系才长久。', knowledge:'💡 谈钱不伤感情，不谈钱才伤。'},
+      {title:'Day 14 · 第二周小结', content:'两周了，小窝越来越温馨。你也越来越会过日子了。', knowledge:'💡 生活的技能，都是钱堆出来的经验。'},
+      {title:'Day 15 · 守护：独居安全', content:'第三周，学保护自己。独居女生尤其要注意安全。', knowledge:'💡 安全意识，是最好的保镖。'},
+      {title:'Day 16 · 门锁一定要换', content:'入住第一件事：换锁芯。不知道之前有多少人有钥匙。', knowledge:'💡 几十块钱，买个安心。'},
+      {title:'Day 17 · 快递外卖注意', content:'外卖不要写详细门牌号，快递收件用昵称。保护好个人信息。', knowledge:'💡 隐私也是一种安全。'},
+      {title:'Day 18 · 备用钥匙放哪里', content:'备用钥匙放靠谱朋友那，或者藏在安全的地方。别把自己锁门外。', knowledge:'💡 凡事留一手。'},
+      {title:'Day 19 · 一个人生病', content:'独居最怕生病。常备常用药，知道附近的医院。', knowledge:'💡 健康是独居的本钱。'},
+      {title:'Day 20 · 独居的意义', content:'一个人生活，你学会了自己照顾自己，也学会了和自己相处。', knowledge:'💡 独立，是最大的成长。'},
+      {title:'Day 21 · 你好，新生活', content:'21天，从陌生到习惯。第一只扑满满了，你的独居生活才刚刚开始。', knowledge:'💡 恭喜完成！解锁“独立生活家”徽章。'}
     ]
   }
-};
-
-/* ========== 财富人格测试题库 ========== */
-const QUIZ = [
-  {q:'最近三个月，你最大的心愿是？', opts:[
-    {t:'把租来的小窝布置成家', s:['home','solo']},
-    {t:'为宝宝或未来的宝宝存一笔钱', s:['baby']},
-    {t:'来一次说走就走的旅行', s:['travel']},
-    {t:'给自己一段停下来喘口气的时间', s:['gap']}
-  ]},
-  {q:'发工资那天，你通常先做什么？', opts:[
-    {t:'先转一笔到“只进不出”的账户', s:['home','baby']},
-    {t:'看看最近有什么想买的', s:['travel','solo']},
-    {t:'算算这个月还能剩多少', s:['gap','solo']},
-    {t:'没想过，花完再说', s:['travel']}
-  ]},
-  {q:'哪种生活场景最让你心动？', opts:[
-    {t:'下班回家，灯是暖的，房间是自己的', s:['home','solo']},
-    {t:'收到孩子的小礼物', s:['baby']},
-    {t:'拖着行李箱在机场看日出', s:['travel']},
-    {t:'工作日也能躺在公园长椅上晒太阳', s:['gap']}
-  ]},
-  {q:'如果多出1000块，你最想怎么用？', opts:[
-    {t:'存起来，离目标更近一步', s:['home','baby','gap']},
-    {t:'犒劳自己一顿好的或一个小物件', s:['solo','travel']},
-    {t:'研究一下怎么钱生钱', s:['home','baby']},
-    {t:'先放着，等有想做的事再说', s:['gap','travel']}
-  ]}
 ];
-</script>
-<script>
-/* ========== 状态 ========== */
-const S = {
-  line:'home', day:1,
-  completed:{home:[],baby:[],travel:[],gap:[],solo:[]},
-  beans:0, idou:0,
-  quizStep:0, quizSel:[], quizScore:{home:0,baby:0,travel:0,gap:0,solo:0}, quizDone:false,
-  tab:'journey'
-};
-const TOTAL_DAYS = 21;
-const $ = id => document.getElementById(id);
 
-/* ========== 工具 ========== */
-const rand = (a,b) => Math.floor(Math.random()*(b-a+1))+a;
-function toast(msg){
-  const t = $('toast');
-  t.textContent = msg; t.classList.add('show');
-  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 2200);
-}
-function go(hash){ location.hash = hash; }
-function completedDays(){ return S.completed[S.line]; }
-function doneCount(line){ return (S.completed[line]||[]).length; }
-function isDone(d){ return S.completed[S.line].indexOf(d) >= 0; }
-function actOf(d){ return d<=7?'觉醒':(d<=14?'积累':'守护'); }
+// ===== 拼豆徽章数据 =====
+const badges = [
+  { name: '起步', pixels: [[0,0,0,1,1,0,0,0],[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,0,1,1,0,1,1],[1,1,1,1,1,1,1,1],[0,1,0,1,1,0,1,0],[0,1,0,0,0,0,1,0],[0,0,0,0,0,0,0,0]], color: '#FFC93C' },
+  { name: '坚持', pixels: [[0,0,1,0,0,1,0,0],[0,0,1,0,0,1,0,0],[0,0,1,1,1,1,0,0],[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,0],[1,1,1,1,1,1,1,1],[0,0,0,0,0,0,0,0]], color: '#4CAF50' },
+  { name: '守护', pixels: [[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,0],[0,1,0,1,1,0,1,0],[0,0,1,1,1,1,0,0],[0,0,0,1,1,0,0,0]], color: '#3498DB' },
+  { name: '金珠', pixels: [[0,0,0,1,1,0,0,0],[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,1,0,0,1,1,1],[1,1,1,0,0,1,1,1],[0,1,1,1,1,1,1,0],[0,0,1,1,1,1,0,0],[0,0,0,1,1,0,0,0]], color: '#FFD700' },
+  { name: '小家', pixels: [[0,0,0,1,1,0,0,0],[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,1,1,1,1,1,1],[1,0,1,1,1,1,0,1],[1,0,1,0,0,1,0,1],[1,0,1,0,0,1,0,1],[1,1,1,1,1,1,1,1]], color: '#C7000B' },
+  { name: '成长', pixels: [[0,0,0,1,1,0,0,0],[0,0,1,1,1,1,0,0],[0,0,0,1,1,0,0,0],[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[0,0,1,1,1,1,0,0],[0,0,0,1,1,0,0,0],[0,0,0,0,0,0,0,0]], color: '#9B59B6' },
+  { name: '勇气', pixels: [[0,1,0,0,0,0,1,0],[1,1,1,0,0,1,1,1],[1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,0],[0,0,1,1,1,1,0,0],[0,0,0,1,1,0,0,0],[0,0,0,0,0,0,0,0]], color: '#E74C3C' },
+  { name: '结业', pixels: [[0,0,0,1,1,0,0,0],[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,1,0,0,1,1,1],[1,1,0,0,0,0,1,1],[0,1,1,0,0,1,1,0],[0,0,1,1,1,1,0,0],[0,0,0,1,1,0,0,0]], color: '#FFC93C' }
+];
 
-/* ========== 路由与渲染 ========== */
-function render(){
-  const h = location.hash || '#/start';
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  const nav = $('bottomNav'), comp = $('compliance');
-  if(h.startsWith('#/home') || h.startsWith('#/grad')){ nav.style.display='flex'; comp.classList.remove('hidden'); }
-  else { nav.style.display='none'; comp.classList.add('hidden'); }
-  if(h.startsWith('#/start')){ show('view-start'); }
-  else if(h.startsWith('#/quiz')){ show('view-quiz'); renderQuiz(); }
-  else if(h.startsWith('#/choose')){ show('view-choose'); renderChoose(); }
-  else if(h.startsWith('#/grad')){ show('view-grad'); renderGrad(); }
-  else { show('view-home'); renderHome(); }
-  window.scrollTo(0,0);
-}
-function show(id){ $(id).classList.add('active'); }
-window.addEventListener('hashchange', render);
+// ===== 全局状态 =====
+let currentStory = 0;
+let currentDay = 0;
+let completedDays = new Set();
+let musicOn = false;
+let audioCtx = null;
 
-/* ========== 财富人格测试 ========== */
-function renderQuiz(){
-  const step = S.quizStep;
-  if(step >= QUIZ.length){ finishQuiz(); return; }
-  const q = QUIZ[step];
-  $('quizBar').style.width = (step/QUIZ.length*100)+'%';
-  $('quizStep').textContent = '第 '+(step+1)+' / '+QUIZ.length+' 题';
-  $('quizQ').textContent = q.q;
-  $('quizOpts').innerHTML = q.opts.map((o,i)=>
-    '<button class="quiz-opt" onclick="pickQuiz('+i+')">'+o.t+'</button>').join('');
-}
-function pickQuiz(i){
-  const q = QUIZ[S.quizStep];
-  q.opts[i].s.forEach(id=>S.quizScore[id]++);
-  S.quizStep++;
-  renderQuiz();
-}
-function finishQuiz(){
-  S.quizDone = true;
-  let best='home', max=-1;
-  Object.keys(S.quizScore).forEach(k=>{ if(S.quizScore[k]>max){max=S.quizScore[k];best=k;} });
-  S.quizResult = best;
-  toast('测试完成，已为你推荐剧情线');
-  go('#/choose');
-}
-function skipQuiz(){ S.quizDone=false; go('#/choose'); }
+// 扑满对话文案库
+const bubbleTexts = [
+  '今天也要喂我一颗金珠！',
+  '完成副本，我会长大哦！',
+  '坚持21天，一起攒成小金库！',
+  '别着急，金珠是一颗一颗攒起来的。',
+  '喂我喂我！我要吃金珠~',
+  '你今天攒钱了吗？',
+  '积少成多，就是这个道理~',
+  '扑满会陪你一起成长的！'
+];
 
-/* ========== 剧情线选择 ========== */
-const ICONS = {
-  home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
-  baby:'<circle cx="12" cy="10" r="6.5"/><path d="M12 4c-1.5 2-1.5 4 0 6s1.5 4 0 6"/><path d="M8 16l-1 5 5-2.5L17 21l-1-5"/>',
-  travel:'<path d="M4 8l16-4-3 16-5-6-6 1z"/><circle cx="12" cy="13" r="1.6"/>',
-  gap:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/><path d="M16 16l2 2 3-4" stroke="#E8A33D" stroke-width="2"/>',
-  solo:'<path d="M12 3v12"/><path d="M8 21h8"/><path d="M12 15c-3 0-5-2.5-5-5 2.5 0 5 2 5 5z"/><path d="M12 15c3 0 5-2.5 5-5-2.5 0-5 2-5 5z"/>'
-};
-function renderChoose(){
-  $('quizSuggest').textContent = S.quizDone ? LINES[S.quizResult].name : '未测试';
-  $('lineList').innerHTML = Object.keys(LINES).map(id=>{
-    const L = LINES[id];
-    return '<button class="line-card" onclick="chooseLine(\''+id+'\')">'
-      +'<div class="line-card-top">'
-      +'<span class="line-icon" style="background:'+L.color+'22;color:'+L.color+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICONS[id]+'</svg></span>'
-      +'<h3>'+L.name+'</h3>'
-      +'<span class="tag" style="background:'+L.color+'">'+actOf(1)+'·'+actOf(21)+'</span>'
-      +'</div>'
-      +'<div class="desc">'+L.tagline+'。目标：'+L.goal+'。</div>'
-      +'<div class="meta"><span>进度可视化：<b>'+L.scene[0]+' → '+L.scene[3]+'</b></span><span>衔接：'+L.products.join(' / ')+'</span></div>'
-      +'</button>';
-  }).join('');
-}
-function chooseLine(id){
-  S.line = id;
-  const done = doneCount(id);
-  S.day = done >= TOTAL_DAYS ? TOTAL_DAYS : done+1;
-  S.tab = 'journey';
-  go('#/home');
+// ===== 页面切换 =====
+function showScreen(id) {
+  ['start-screen','select-screen','main-screen','finish-screen'].forEach(s => {
+    document.getElementById(s).style.display = 'none';
+  });
+  document.getElementById(id).style.display = 'block';
 }
 
-/* ========== 主旅程 ========== */
-function renderHome(){
-  const L = LINES[S.line];
-  const d = S.day, day = L.days[d-1];
-  const done = doneCount(S.line);
-  $('headLineName').textContent = L.name;
-  const pct = Math.round(done/TOTAL_DAYS*100);
-  const stageIdx = done===0?0:(done<=7?1:(done<=14?2:3));
-  const acts = ['觉醒','积累','守护'].map(a=>
-    '<span class="'+(actOf(d)===a?'on':'')+'">'+a+'</span>').join('');
+function startGame() {
+  initAudio();
+  showScreen('select-screen');
+  setTimeout(showExclaim, 800);
+}
 
-  const taskZone = buildTaskZone(day.mode, d);
-  const heroBg = 'linear-gradient(135deg,'+L.color+' 0%, ' + shade(L.color) + ' 100%)';
-  let html =
-    '<div class="journey-hero">'
-    +'<div class="bg" style="background:'+heroBg+'"></div>'
-    +'<div class="inner">'
-    +'<span class="journey-line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+ICONS[S.line]+'</svg>'+L.name+'</span>'
-    +'<div class="journey-day">第 <b>'+d+'</b> 天 · '+L.tagline+'</div>'
-    +'<div class="journey-act">'+day.story+'</div>'
-    +'<div class="journey-progress"><i style="width:'+pct+'%;background:'+(done>=TOTAL_DAYS?'#F5C268':'#fff')+'"></i></div>'
-    +'<div class="acts">'+acts+'</div>'
-    +'</div></div>';
+function selectStory(idx) {
+  currentStory = idx;
+  currentDay = 0;
+  completedDays.clear();
+  document.getElementById('storyName').textContent = stories[idx].name;
+  loadDay(0);
+  renderCalendar();
+  renderBadges();
+  updatePiggyStage();
+  showScreen('main-screen');
+  setTimeout(showExclaim, 500);
+}
 
-  html += '<div class="story-card">'
-    +'<div class="story-label">今日剧情</div>'
-    +'<div class="story-text">'+day.story+'</div>'
-    +'<span class="story-idea"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>'+day.idea+'</span>'
-    +'</div>';
+function backToSelect() {
+  showScreen('select-screen');
+}
 
-  if(isDone(d)){
-    html += '<div class="task-done" style="margin-top:14px">今日已完成 · 已存入 <b>'+S.lastAmount+'</b> 元</div>';
-    if(d < TOTAL_DAYS) html += '<button class="btn btn-primary" style="margin-top:14px" onclick="nextDay()">进入第 '+(d+1)+' 天</button>';
-    else html += '<button class="btn btn-primary" style="margin-top:14px" onclick="go(\'#/grad\')">参加结业典礼</button>';
+// ===== 加载当日内容 =====
+function loadDay(day) {
+  currentDay = day;
+  const data = stories[currentStory].days[day];
+  document.getElementById('dayLabel').textContent = `第 ${day+1} 天`;
+  document.getElementById('todayTitle').textContent = data.title;
+  document.getElementById('todayContent').textContent = data.content;
+  document.getElementById('todayKnowledge').textContent = data.knowledge;
+  
+  const btn = document.getElementById('taskBtn');
+  if (completedDays.has(day)) {
+    btn.textContent = '✓ 今日已完成';
+    btn.classList.add('done');
+    btn.disabled = true;
   } else {
-    html += '<div class="task-card"><div class="task-head"><span class="dot"></span>今日玩法</div>'
-      +'<div class="task-title">'+taskZone.title+'</div>'
-      +'<div class="task-sub">'+taskZone.sub+'</div>'
-      +'<div class="task-zone" id="taskZone">'+taskZone.html+'</div></div>';
+    btn.textContent = '喂扑满一颗金珠 · 完成今日任务';
+    btn.classList.remove('done');
+    btn.disabled = false;
   }
-
-  html += '<div class="scene-card">'
-    +'<div class="scene-label"><span>攒钱进度 · '+L.scene[stageIdx]+'</span><span class="pct">'+pct+'%</span></div>'
-    +'<div class="scene-stage">'+L.scene[stageIdx]+'</div>'
-    +'<div class="scene-visual">'+sceneSvg(S.line, done, L.color)+'</div>'
-    +'</div>';
-
-  if(d===7 || d===14 || d===21){
-    html += '<div class="milestone"><b>里程碑：</b>'+(d===7?'第一幕「觉醒」结算完成，你的'+L.name+'有了新模样。':(d===14?'第二幕「积累」结算完成，离目标又近一步。':'恭喜你走完21天，结业典礼已开启。'))+'</div>';
-  }
-  html += squadCard();
-  $('homeContent').innerHTML = html;
-  setNav(S.tab);
-}
-function shade(hex){
-  const n = parseInt(hex.slice(1),16);
-  const r=(n>>16)&255, g=(n>>8)&255, b=n&255;
-  return 'rgb('+Math.round(r*.62)+','+Math.round(g*.62)+','+Math.round(b*.62)+')';
-}
-function nextDay(){ S.day = Math.min(S.day+1, TOTAL_DAYS); renderHome(); }
-
-/* ========== 今日玩法任务引擎 ========== */
-function buildTaskZone(mode, d){
-  switch(mode){
-    case 'answer': return {title:'先看清，再行动', sub:'回答完这一天的剧情问题，你就能看清自己现在的样子。', html:'<button class="box-item" onclick="doTask(\'answer\','+d+')"><b>完成今日剧情</b><span>先看清现状</span></button>'};
-    case 'save': return {title:'存下这一笔', sub:'今天的小目标：往你的目标账户里放一笔。', html:'<button class="box-item" onclick="doTask(\'save\','+d+')"><b>确认存入 '+rand(20,50)+' 元</b><span>钱会真实留在工行账户</span></button>'};
-    case 'blind': return {title:'打开今天的盲盒', sub:'金额是随机的——理财的第一步，是接受不确定。', html:'<button class="box-item" onclick="doTask(\'blind\','+d+')"><b>打开盲盒</b><span>抽一个数字存下</span></button>'};
-    case 'round': return {title:'把零头存下来', sub:'昨天的消费里，藏着今天能存的钱。', html:'<button class="box-item" onclick="doTask(\'round\','+d+')"><b>自动凑整 '+rand(8,36)+' 元</b><span>零头也能聚沙成塔</span></button>'};
-    case 'cancel': return {title:'砍掉一笔隐形开销', sub:'找一个你其实用不上的订阅或账单，取消它。', html:'<button class="box-item" onclick="doTask(\'cancel\','+d+')"><b>取消并存下 '+rand(15,45)+' 元</b><span>看见隐性成本</span></button>'};
-    case 'guess': return {title:'猜猜昨天的花费', sub:'猜得越不准，存得越多——猜错的部分，就是预算感。', html:'<button class="box-item" onclick="doTask(\'guess\','+d+')"><b>猜完了，差额存下 '+rand(10,40)+' 元</b><span>建立预算感</span></button>'};
-    case 'freeze': return {title:'今天不消费', sub:'忍住一笔非必要消费，把省下的钱留给更重要的事。', html:'<button class="box-item" onclick="doTask(\'freeze\','+d+')"><b>我忍住了，存下 '+rand(25,60)+' 元</b><span>对抗冲动消费</span></button>'};
-    case 'calc': return {title:'算一算真实价格', sub:'很多"划算"只是看起来划算，算完你就知道了。', html:'<button class="box-item" onclick="doTask(\'calc\','+d+')"><b>算好了，存下 '+rand(20,60)+' 元</b><span>看清真实成本</span></button>'};
-    case 'temp': return {title:'按今天的气温存钱', sub:'今天几度，就存几块钱——让存钱有点仪式感。', html:'<button class="box-item" onclick="doTask(\'temp\','+d+')"><b>今天 '+rand(8,30)+' 度，存 '+rand(8,30)+' 元</b><span>仪式感存钱</span></button>'};
-    case 'roll': return {title:'掷骰子决定存多少', sub:'理财也可以有点运气成分——1点存10块。', html:'<button class="box-item" onclick="doTask(\'roll\','+d+')"><b>掷骰子</b><span>点数 × 10 元</span></button>'};
-  }
-}
-function doTask(mode, d){
-  if(isDone(d)) return;
-  let amt;
-  switch(mode){
-    case 'roll': amt = rand(1,6)*10; break;
-    case 'blind': amt = rand(10,88); break;
-    case 'answer': amt = rand(5,20); break;
-    default: amt = rand(10,50);
-  }
-  S.lastAmount = amt;
-  S.completed[S.line].push(d);
-  S.beans += 10; S.idou += 200;
-  const z = $('taskZone');
-  z.innerHTML = '<div class="result-badge"><b>+'+amt+' 元</b><span>已存入你的目标账户 · 金豆 +10 · i豆 +200</span></div>';
-  toast('今日打卡成功，'+LINES[S.line].name+'前进了一步');
-  setTimeout(()=>{ renderHome(); }, 650);
+  
+  updateProgress();
 }
 
-/* ========== 进度可视化（场景SVG） ========== */
-function sceneSvg(lineId, done, color){
-  const lit = Math.min(7, Math.ceil(done/3));
-  let dots = '';
-  for(let i=0;i<7;i++){
-    const x = 14 + i*7, y = i<lit ? 12 : 14;
-    dots += '<rect x="'+x+'" y="'+y+'" width="5" height="5" rx="1" fill="'+(i<lit?color:'#D8CFB8')+'" stroke="#23283C" stroke-width="1"/>';
-  }
-  const g = '<g stroke="#23283C" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">';
-  const glyph = {
-    home:'<path d="M22 66v-18l-16-10-16 10v18"/><rect x="8" y="52" width="8" height="14" stroke-width="2.2"/><rect x="16" y="52" width="8" height="14" stroke-width="2.2"/><rect x="28" y="52" width="8" height="14" stroke-width="2.2"/><rect x="38" y="52" width="8" height="14" stroke-width="2.2"/><path d="M32 42v-6"/><rect x="30" y="34" width="4" height="4"/>',
-    baby:'<path d="M28 30c-8 6-8 16 0 22s20 6 20-4c-8 0-14-7-14-16 0-6-3-9-6-2z"/><circle cx="42" cy="56" r="7"/><path d="M39 56h6M42 53v6"/><path d="M22 40h-6a5 5 0 0 0 5 5h1"/>',
-    travel:'<rect x="12" y="42" width="34" height="22" rx="4"/><path d="M20 42v-5h18v5"/><rect x="20" y="51" width="18" height="5" rx="2"/><path d="M12 54h34" opacity=".4"/>',
-    gap:'<rect x="20" y="26" width="24" height="32" rx="3"/><path d="M26 34h12M26 40h12M26 46h6"/><circle cx="39" cy="47" r="6" stroke="#F5A623" fill="rgba(245,166,35,.25)"/><path d="M36 47h6M39 44v6"/>',
-    solo:'<path d="M28 20c0 11-5 16-11 19 6 3 11 8 11 19 0-11 5-16 11-19-6-3-11-8-11-19z"/><path d="M28 58v10"/><rect x="25" y="68" width="6" height="6"/><path d="M20 38c-6-3-11-8-11-19 0 11 5 16 11 19zM36 38c6-3 11-8 11-19 0 11-5 16-11 19z" opacity=".7"/>'
-  }[lineId] || '';
-  return '<svg viewBox="0 0 62 80" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'
-    +'<defs><pattern id="pxgrid" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#FDF6E3"/><rect width="8" height="8" fill="none" stroke="#E9DFC6" stroke-width="1"/></pattern></defs>'
-    +'<rect x="2" y="2" width="58" height="76" rx="6" fill="url(#pxgrid)" stroke="#23283C" stroke-width="2.5"/>'
-    +'<rect x="10" y="8" width="42" height="14" rx="4" fill="'+(done>0?color:'#EFE7D0')+'" stroke="#23283C" stroke-width="2"/>'
-    +dots
-    +g+glyph+'</g>'
-    +'</svg>';
-}
-
-/* ========== 小队 ========== */
-function squadCard(){
-  const mine = doneCount(S.line);
-  const members = [
-    {n:'我', c:mine, col:'#C7000B'},
-    {n:'小圆', c:Math.min(21, mine+3), col:'#2A7FB8'},
-    {n:'阿哲', c:Math.min(21, Math.max(0,mine-2)), col:'#E07A3F'},
-    {n:'Momo', c:Math.min(21, mine+6), col:'#6A5ACD'}
-  ];
-  const rows = members.map(m=>
-    '<div class="squad-row"><span class="squad-ava" style="background:'+m.col+'">'+m.n.charAt(0)+'</span>'
-    +'<span class="squad-name">'+m.n+'</span>'
-    +'<span class="squad-bar"><i style="width:'+(m.c/21*100)+'%;background:'+m.col+'"></i></span>'
-    +'<span class="squad-num">'+m.c+'/21天</span></div>').join('');
-  return '<div class="squad-card"><div class="squad-rule"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 5-5"/></svg>只比坚持，不比金额 · 金额不公开</div>'
-    +'<div class="squad-list">'+rows+'</div></div>';
-}
-
-/* ========== 日历 ========== */
-function renderCalendar(){
-  const L = LINES[S.line];
-  const doneSet = S.completed[S.line];
-  let cells = '';
-  for(let i=1;i<=TOTAL_DAYS;i++){
-    const cls = ['cal-cell'];
-    if(i===S.day) cls.push('current');
-    if(doneSet.indexOf(i)>=0) cls.push('done');
-    if(i===7||i===14||i===21) cls.push('milestone');
-    cells += '<div class="'+cls.join(' ')+'" onclick="viewDay('+i+')">'+i+'</div>';
-  }
-  return '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px">'
-    +'<div class="section-title" style="margin:0">'+L.name+' · 21天旅程</div>'
-    +'<span style="font-size:12.5px;color:var(--ink-soft)">完成 '+doneSet.length+' / '+TOTAL_DAYS+' 天</span></div>'
-    +'<div class="cal-grid" style="margin-top:10px">'+cells+'</div>'
-    +'<div class="cal-legend"><span><i style="background:var(--teal)"></i>已完成</span><span><i style="background:var(--cream);border:1px solid var(--line)"></i>未完成</span><span><i style="background:var(--gold)"></i>三幕节点</span><span><i style="border:2px solid var(--red);background:transparent"></i>今天</span></div>'
-    +'<div class="story-card"><div class="story-label">第 '+S.day+' 天 · '+L.days[S.day-1].story+'</div>'
-    +'<div class="story-text">'+L.days[S.day-1].task+'</div>'
-    +'<span class="story-idea">'+L.days[S.day-1].idea+'</span></div>';
-}
-function viewDay(i){ S.day = i; S.tab='journey'; renderHome(); }
-
-/* ========== 徽章 ========== */
-const BADGES = [
-  {n:'迈出第一步', d:'完成第1天', cond:done=>done>=1, col:'#C7000B'},
-  {n:'连续3天', d:'连续打卡3天', cond:done=>done>=3, col:'#F4845F'},
-  {n:'觉醒者', d:'完成第7天·第一幕', cond:done=>done>=7, col:'#FFD23F'},
-  {n:'积累者', d:'完成第14天·第二幕', cond:done=>done>=14, col:'#7BC950'},
-  {n:'坚持14天', d:'连续打卡14天', cond:done=>done>=14, col:'#4EA8DE'},
-  {n:'守护者', d:'完成第21天·第三幕', cond:done=>done>=21, col:'#9B5DE5'},
-  {n:'全勤毕业', d:'21天全勤', cond:done=>done>=21, col:'#F5A623'},
-  {n:'理财启蒙', d:'完成全部21天', cond:done=>done>=21, col:'#0E9C8E'}
-];
-/* 拼豆图案：8行字符画，. = 灰豆，# = 主题色豆，o = 金色豆 */
-const BEAD_ART = [
-  ['........','..###...','..####..','..#####.','..####..','..###...','..#.....','..#.....'], /* 起点旗 */
-  ['...#...#','..###.##','...#...#','........','....#...','...###..','....#...','........'], /* 三星连珠 */
-  ['...#...','.#.#.#.','..#.#..','.##.##.','..#.#..','.#.#.#.','...#...','........'],       /* 太阳觉醒 */
-  ['........','..####..','.##oo##.','.#oooo#.','.#oooo#.','.##oo##.','..####..','........'], /* 金币 */
-  ['..####..','.##oo##.','.#oooo#.','..##oo..','..####..','..####..','..#..#..','........'], /* 奖杯 */
-  ['.######.','.#....#.','.#.##.#.','.#.##.#.','..#..#..','..#..#..','...##...','........'], /* 盾牌 */
-  ['#......#','.#....#.','..####..','.##oo##.','.#oooo#.','..####..','........','........'], /* 皇冠 */
-  ['....#...','...###..','..#####.','.######.','...###..','..#####.','...#.#..','...#....']  /* 星星 */
-];
-function beadSvg(art, lit, col){
-  const cell = 6, gap = 1, n = art.length;
-  const w = n*cell + (n-1)*gap;
-  let rects = '';
-  art.forEach((row,ri)=>{
-    for(let ci=0;ci<row.length;ci++){
-      const ch = row[ci];
-      if(ch==='.') continue;
-      const on = lit;
-      const fill = !on ? '#D8CFB8' : (ch==='o' ? '#FFD23F' : col);
-      rects += '<rect x="'+(ci*(cell+gap))+'" y="'+(ri*(cell+gap))+'" width="'+cell+'" height="'+cell+'" rx="1.4" fill="'+fill+'" stroke="#23283C" stroke-width="1" class="'+(on?'bead-pop':'')+'" style="transform-box:fill-box;transform-origin:center;animation-delay:'+(ri*40+ci*40)+'ms"/>';
+// ===== 完成任务 =====
+function completeTask() {
+  if (completedDays.has(currentDay)) return;
+  
+  completedDays.add(currentDay);
+  const btn = document.getElementById('taskBtn');
+  btn.textContent = '✓ 今日已完成';
+  btn.classList.add('done');
+  btn.disabled = true;
+  
+  // 投币动画+音效
+  playCoinSound();
+  flyCoin();
+  
+  // 更新界面
+  updateProgress();
+  renderCalendar();
+  renderBadges();
+  updatePiggyStage();
+  
+  // 扑满说话
+  sayBubble('嗝~ 金珠真好吃！');
+  
+  // 自动进入下一天 or 结业
+  setTimeout(() => {
+    if (currentDay < 20) {
+      loadDay(currentDay + 1);
+    } else {
+      showScreen('finish-screen');
+      sayBubble('我们毕业啦！');
     }
-  });
-  return '<svg viewBox="0 0 '+w+' '+w+'" width="58" height="58" shape-rendering="crispEdges" aria-hidden="true">'+rects+'</svg>';
-}
-function renderBadge(){
-  const done = doneCount(S.line);
-  return '<div class="section-title">徽章墙 · 拼豆收集册</div>'
-    +'<p style="font-size:12.5px;color:var(--ink-soft);margin:-4px 0 12px;line-height:1.7">每一枚徽章都是一幅拼豆画——完成对应挑战，豆子一颗颗亮起来。</p>'
-    +'<div class="badge-grid">'+BADGES.map((b,i)=>{
-      const lit = b.cond(done);
-      return '<div class="badge'+(lit?' lit':'')+'"><span class="ico">'+beadSvg(BEAD_ART[i], lit, b.col)+'</span><span>'+b.n+'</span>'+(lit?'<span class="got">已点亮</span>':'<span class="lock">'+b.d+'</span>')+'</div>';
-    }).join('')+'</div>'
-    +'<div class="line-tip" style="margin-top:14px">拼豆按完成进度逐颗点亮（演示版即时点亮；正式版按T+2到账）。</div>';
+  }, 1500);
 }
 
-/* ========== 小队页 ========== */
-function renderSquad(){
-  const mine = doneCount(S.line);
-  const members = [
-    {n:'我', c:mine, col:'#C7000B', tag:'<span style="color:var(--red);font-size:11px">你</span>'},
-    {n:'小圆', c:Math.min(21, mine+3), col:'#2A7FB8', tag:''},
-    {n:'阿哲', c:Math.min(21, Math.max(0,mine-2)), col:'#E07A3F', tag:''},
-    {n:'Momo', c:Math.min(21, mine+6), col:'#6A5ACD', tag:''}
-  ];
-  return '<div class="section-title">我的小队 · '+LINES[S.line].name+'</div>'
-    +'<div class="squad-card"><div class="squad-rule"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 5-5"/></svg>小队由熟人通过邀请码组成，不设陌生人匹配与私聊</div>'
-    +'<div class="squad-list">'+members.map(m=>
-      '<div class="squad-row"><span class="squad-ava" style="background:'+m.col+'">'+m.n.charAt(0)+'</span>'
-      +'<span class="squad-name">'+m.n+' '+m.tag+'</span>'
-      +'<span class="squad-bar"><i style="width:'+(m.c/21*100)+'%;background:'+m.col+'"></i></span>'
-      +'<span class="squad-num">'+m.c+'/21天</span></div>').join('')+'</div></div>'
-    +'<div class="line-tip">队友之间只展示打卡天数和进度，不公开金额、不按金额排名——只比谁更坚持。</div>'
-    +'<button class="btn btn-line" style="margin-top:14px" onclick="toast(\'演示环境：正式版通过邀请码邀请微信好友入队\')">邀请队友</button>';
+// ===== 进度更新 =====
+function updateProgress() {
+  const done = completedDays.size;
+  const pct = (done / 21) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${done} / 21`;
+  document.getElementById('coinCount').textContent = `已攒金珠：${done} 颗`;
+  document.getElementById('myProgress').textContent = `${done}/21`;
 }
 
-/* ========== 结业 ========== */
-function renderGrad(){
-  const L = LINES[S.line];
-  const done = doneCount(S.line);
-  S.idou = Math.max(S.idou, done*200);
-  S.beans = Math.max(S.beans, done*10);
-  $('gradContent').innerHTML =
-    '<div class="grad-hero"><div class="seal"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6l4 2"/><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>'
-    +'<h2>恭喜毕业，'+L.name+'完成</h2><p>你用21天，走完了第一次完整的理财闭环。</p></div>'
-    +'<div class="grad-stats"><div class="grad-stat"><b>'+done+'</b><span>坚持天数</span></div><div class="grad-stat"><b>'+S.beans+'</b><span>成长金豆</span></div><div class="grad-stat"><b>'+S.idou+'</b><span>工银i豆</span></div></div>'
-    +'<div class="story-card"><div class="story-label">结业报告</div>'
-    +'<div class="story-text">这一趟旅程，你完成了'+done+'次打卡，'+L.scene[3]+'。攒下的钱已经真实留在你的工行账户里。</div>'
-    +'<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">'+L.products.map(p=>'<span style="background:#E6F2F1;color:var(--teal);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600">衔接 '+p+'</span>').join('')+'</div></div>'
-    +'<div class="next-card"><h4>下一站 · 进阶剧本</h4><p>21天只是新手村。毕业之后，你的'+L.name+'会继续生长：小家之后是育儿、房车、养老；攒下的钱可以对接 '+L.products.join('、')+'，让习惯变成真正的财富。</p>'
-    +'<div class="chips"><span class="chip">长线剧本线</span><span class="chip">每日回访钩子</span><span class="chip">理财进阶课程</span></div></div>'
-    +'<button class="btn btn-primary" style="margin-top:16px" onclick="go(\'#/home\')">回到旅程回顾</button>';
-}
-
-/* ========== 底部导航 ========== */
-function switchTab(tab){
-  S.tab = tab;
-  let html = '';
-  if(tab==='journey'){ renderHome(); return; }
-  if(tab==='calendar') html = renderCalendar();
-  if(tab==='squad') html = renderSquad();
-  if(tab==='badge') html = renderBadge();
-  $('homeContent').innerHTML = html;
-  setNav(tab);
-}
-function setNav(tab){
-  document.querySelectorAll('.nav-btn').forEach(b=>{
-    b.classList.toggle('on', b.dataset.tab===tab);
-  });
-}
-
-/* ========== 背景音乐 ========== */
-const bgm = document.getElementById('bgm');
-const bgmBtn = document.getElementById('bgmBtn');
-function setBgmBtn(muted){ if(bgmBtn) bgmBtn.classList.toggle('muted', muted); }
-function toggleBgm(){
-  if(!bgm) return;
-  if(bgm.paused){ bgm.play().catch(()=>{ toast('浏览器拦截了自动播放，点击页面任意处即可开启音乐'); setBgmBtn(true); }); setBgmBtn(false); }
-  else { bgm.pause(); setBgmBtn(true); }
-  try{ localStorage.setItem('bgm', bgm.paused ? 'off' : 'on'); }catch(e){}
-}
-/* 首次任意点击尝试开播（多数浏览器要求用户手势） */
-function tryAutoBgm(){
-  if(bgm && bgm.paused){
-    try{ if(localStorage.getItem('bgm') === 'off'){ setBgmBtn(true); return; } }catch(e){}
-    bgm.play().catch(()=>{ setBgmBtn(true); });
-    setBgmBtn(false);
+// ===== 日历渲染 =====
+function renderCalendar() {
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+  for (let i = 0; i < 21; i++) {
+    const d = document.createElement('div');
+    d.className = 'cal-day';
+    d.textContent = i + 1;
+    if (i === currentDay) d.classList.add('active');
+    if (completedDays.has(i)) d.classList.add('done');
+    d.onclick = () => {
+      if (i <= Math.max(currentDay, ...completedDays, 0)) {
+        loadDay(i);
+      }
+    };
+    grid.appendChild(d);
   }
 }
-document.addEventListener('pointerdown', tryAutoBgm, {once:true});
 
-/* ========== 启动 ========== */
-render();
+// ===== 拼豆徽章渲染 =====
+function renderBadges() {
+  const grid = document.getElementById('badgeGrid');
+  grid.innerHTML = '';
+  const done = completedDays.size;
+  const unlockCount = Math.min(8, Math.floor(done / 3) + (done > 0 ? 1 : 0));
+  
+  badges.forEach((badge, idx) => {
+    const item = document.createElement('div');
+    item.className = 'badge-item' + (idx < unlockCount ? ' unlocked' : '');
+    
+    const bean = document.createElement('div');
+    bean.className = 'badge-bean';
+    for (let y = 0; y < 8; y++) {
+      for (let x = 0; x < 8; x++) {
+        const px = document.createElement('div');
+        px.className = 'bean-pixel';
+        if (badge.pixels[y][x]) {
+          px.style.background = idx < unlockCount ? badge.color : '#555';
+        }
+        bean.appendChild(px);
+      }
+    }
+    
+    const name = document.createElement('div');
+    name.textContent = badge.name;
+    item.appendChild(bean);
+    item.appendChild(name);
+    grid.appendChild(item);
+  });
+}
+
+// ===== 扑满三幕成长形态 =====
+function updatePiggyStage() {
+  const done = completedDays.size;
+  const svg = document.getElementById('piggyBody');
+  let stage = 1;
+  if (done >= 15) stage = 3;
+  else if (done >= 8) stage = 2;
+  
+  if (stage === 1) {
+    svg.innerHTML = `
+      <rect x="8" y="10" width="16" height="14" fill="#FFB6C1"/>
+      <rect x="6" y="12" width="2" height="8" fill="#FFB6C1"/>
+      <rect x="24" y="12" width="2" height="8" fill="#FFB6C1"/>
+      <rect x="10" y="8" width="4" height="4" fill="#FFB6C1"/>
+      <rect x="18" y="8" width="4" height="4" fill="#FFB6C1"/>
+      <rect x="11" y="12" width="2" height="2" fill="#000"/>
+      <rect x="19" y="12" width="2" height="2" fill="#000"/>
+      <rect x="14" y="15" width="4" height="2" fill="#FF6B8A"/>
+      <rect x="13" y="6" width="6" height="2" fill="#C7000B"/>
+      <rect x="10" y="20" width="12" height="1" fill="#000"/>
+    `;
+  } else if (stage === 2) {
+    svg.innerHTML = `
+      <rect x="8" y="10" width="16" height="14" fill="#FFB6C1"/>
+      <rect x="6" y="12" width="2" height="8" fill="#FFB6C1"/>
+      <rect x="24" y="12" width="2" height="8" fill="#FFB6C1"/>
+      <rect x="10" y="8" width="4" height="4" fill="#FFB6C1"/>
+      <rect x="18" y="8" width="4" height="4" fill="#FFB6C1"/>
+      <rect x="11" y="12" width="2" height="2" fill="#000"/>
+      <rect x="19" y="12" width="2" height="2" fill="#000"/>
+      <rect x="14" y="15" width="4" height="2" fill="#FF6B8A"/>
+      <rect x="13" y="6" width="6" height="2" fill="#C7000B"/>
+      <rect x="10" y="17" width="12" height="3" fill="#FFD700" opacity="0.8"/>
+      <rect x="10" y="20" width="12" height="1" fill="#000"/>
+    `;
+  } else {
+    svg.innerHTML = `
+      <rect x="7" y="9" width="18" height="16" fill="#FFD700"/>
+      <rect x="5" y="11" width="2" height="10" fill="#FFD700"/>
+      <rect x="25" y="11" width="2" height="10" fill="#FFD700"/>
+      <rect x="9" y="7" width="4" height="4" fill="#FFD700"/>
+      <rect x="19" y="7" width="4" height="4" fill="#FFD700"/>
+      <rect x="10" y="11" width="2" height="2" fill="#000"/>
+      <rect x="20" y="11" width="2" height="2" fill="#000"/>
+      <rect x="13" y="14" width="6" height="3" fill="#C7000B"/>
+      <rect x="12" y="4" width="8" height="3" fill="#C7000B"/>
+      <rect x="14" y="2" width="4" height="2" fill="#FFC93C"/>
+      <rect x="9" y="19" width="14" height="2" fill="#FFA500"/>
+    `;
+  }
+}
+
+// ===== 扑满对话交互 =====
+function toggleBubble() {
+  const bubble = document.getElementById('piggyBubble');
+  if (bubble.style.display === 'block') {
+    bubble.style.display = 'none';
+  } else {
+    const text = bubbleTexts[Math.floor(Math.random() * bubbleTexts.length)];
+    bubble.textContent = text;
+    bubble.style.display = 'block';
+    playBlipSound();
+    setTimeout(() => { bubble.style.display = 'none'; }, 3000);
+  }
+  document.getElementById('piggyExclaim').style.display = 'none';
+}
+
+function sayBubble(text) {
+  const bubble = document.getElementById('piggyBubble');
+  bubble.textContent = text;
+  bubble.style.display = 'block';
+  setTimeout(() => { bubble.style.display = 'none'; }, 2500);
+}
+
+function showExclaim() {
+  const ex = document.getElementById('piggyExclaim');
+  ex.style.display = 'block';
+  setTimeout(() => { ex.style.display = 'none'; }, 5000);
+}
+
+// ===== 投币飞入动画 =====
+function flyCoin() {
+  const piggy = document.getElementById('piggy-mascot');
+  const rect = piggy.getBoundingClientRect();
+  const coin = document.createElement('div');
+  coin.className = 'coin-fly';
+  coin.style.left = (rect.left + 20) + 'px';
+  coin.style.top = (rect.top - 20) + 'px';
+  document.body.appendChild(coin);
+  setTimeout(() => coin.remove(), 800);
+}
+
+// ===== 8-bit 音频系统（Web Audio实时生成） =====
+function initAudio() {
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  } catch(e) {}
+}
+
+function toggleMusic() {
+  if (!audioCtx) initAudio();
+  if (musicOn) {
+    musicOn = false;
+    document.getElementById('musicBtn').textContent = '♪';
+  } else {
+    musicOn = true;
+    document.getElementById('musicBtn').textContent = '♫';
+    startBGM();
+  }
+}
+
+function startBGM() {
+  if (!audioCtx) return;
+  const notes = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63];
+  let idx = 0;
+  
+  function playNote() {
+    if (!musicOn) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = notes[idx % notes.length];
+    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.25);
+    idx++;
+    setTimeout(playNote, 250);
+  }
+  playNote();
+  
+  function playBass() {
+    if (!musicOn) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = 130.81;
+    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.5);
+    setTimeout(playBass, 500);
+  }
+  playBass();
+}
+
+function playBlipSound() {
+  if (!audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
+  gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.1);
+}
+
+function playCoinSound() {
+  if (!audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(1600, audioCtx.currentTime + 0.15);
+  gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.15);
+}
+
+// ===== 重启 =====
+function restart() {
+  completedDays.clear();
+  showScreen('select-screen');
+  updatePiggyStage();
+}
+
+// ===== 初始化 =====
+renderCalendar();
+renderBadges();
+
+// 首次点击激活音频（浏览器策略）
+document.addEventListener('click', function initAudioOnFirstClick() {
+  if (!audioCtx) initAudio();
+}, { once: true });
 </script>
 </body>
 </html>
